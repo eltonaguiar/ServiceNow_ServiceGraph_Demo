@@ -197,3 +197,8 @@ Service Graph Connector for AWS.
 
 Navigate  to sys_store_app_list.do (you can type under filter navigator to get there)
 https://dev296154.service-now.com/now/nav/ui/classic/params/target/sys_store_app_list.do%3Fsysparm_first_row%3D1%26sysparm_query%3DGOTOnameLIKEaws%26sysparm_query_encoded%3DGOTOnameLIKEaws%26sysparm_view%3D
+
+
+<img width="1700" height="166" alt="image" src="https://github.com/user-attachments/assets/21475cfe-c336-4357-b01a-53c5466a7b5e" />
+ServiceNow 
+Service Graph Connector for AWS --> sn_aws_integ
