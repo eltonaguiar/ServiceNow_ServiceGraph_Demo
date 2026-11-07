@@ -39,6 +39,14 @@ I put a zero spend budget:
 <img width="1029" height="312" alt="image" src="https://github.com/user-attachments/assets/603f33de-0eef-4b1f-b90c-f0e2bde6e692" />
 
    - Enter your email, create the budget, and **verify the email** so alerts actually send.
+
+
+Email verify confirmation method (confirmation email landed in my spam folder initially)
+Find email like this:
+<img width="760" height="368" alt="image" src="https://github.com/user-attachments/assets/147ecdac-10db-47b8-8c01-0657269fdb7c" />
+Click the Verify link:
+   - <img width="560" height="294" alt="image" src="https://github.com/user-attachments/assets/feaa707f-4160-48fe-b84f-07488b054475" />
+
 4. Choose one region and stick to it for the whole lab (for example `ca-central-1`). Multi-region imports multiply the data and the surprises.
 5. Note your **12-digit account ID** (top-right account menu).
 
