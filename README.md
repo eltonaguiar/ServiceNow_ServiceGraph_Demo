@@ -250,3 +250,9 @@ Click Create policy. Then return to the user-creation tab, refresh the policy li
 
 Creating the policy doesn't attach it automatically.
 
+
+
+On the other tab , I pressed Previous-->then next, then refresh and pasted in the policy name I created (ServiceNowSGCLabReadOnly)
+<img width="1133" height="508" alt="image" src="https://github.com/user-attachments/assets/953228e7-699f-4b95-9b5e-b6878c355d00" />
+
+Thus, attaching the policy to the user 
