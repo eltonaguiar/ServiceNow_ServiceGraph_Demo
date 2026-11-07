@@ -102,7 +102,7 @@ The budget alarm is your only early warning, which is why it is step 2 and not a
 
 ---
 
-## Optional — Setup your Free Azure Account
+## Optional — Setup your Free Azure Account (Lab 8, if you choose to)
 
 *(Lab 8 only)*
 
