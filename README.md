@@ -24,7 +24,7 @@ As shown in [Lab 7](https://eltonaguiar.github.io/ServiceNow_ServiceGraph_Lab/la
 | Labs 0–4 | Walkthrough + screenshots in this file | [Lab 4 — Run import](https://eltonaguiar.github.io/ServiceNow_ServiceGraph_Lab/labs/04-run-import/) |
 | Lab 5 | **Completed** — IRE look-only steps below | [Lab 5 — IRE](https://eltonaguiar.github.io/ServiceNow_ServiceGraph_Lab/labs/05-ire/) |
 | Lab 6 | **Completed** — hands-on mapping below (**deviates** from published read-only Part A) | [Lab 6 — ETL](https://eltonaguiar.github.io/ServiceNow_ServiceGraph_Lab/labs/06-etl-mappings/) · [demo deviations](docs/LAB-DEVIATIONS.md) |
-| Lab 7 | **In progress** — wizard step 2 **Populate**; **Manual not chosen yet**; **not saved**; no VM linked | [Lab 7 — CSDM](https://eltonaguiar.github.io/ServiceNow_ServiceGraph_Lab/labs/07-csdm-graph/) |
+| Lab 7 | **Minimal demo checkpoint** — **Payments(lab)** saved; manual **sgclab-app-01** on map (**not** full lab / business model) | [Lab 7 — CSDM](https://eltonaguiar.github.io/ServiceNow_ServiceGraph_Lab/labs/07-csdm-graph/) |
 | Labs 8–11 | **Not done** | [Overview](https://eltonaguiar.github.io/ServiceNow_ServiceGraph_Lab/) |
 
 **Screenshot inventory:** [docs/SCREENSHOT-INVENTORY.md](docs/SCREENSHOT-INVENTORY.md) (included vs missing for this publish).
@@ -51,7 +51,7 @@ Verified lab region example: **US East (Ohio) `us-east-2`**. One **stopped** ren
 | **Table** | e.g. `cmdb_ci_vm_instance` | Filter Navigator: `cmdb_ci_vm_instance.list` |
 | Engine that **matches new rows to old** | **IRE** | Read outcomes in Lab 5; warnings in Lab 6 |
 | **Recipe** from AWS JSON → CMDB columns | **ETL** (IntegrationHub ETL) | Lab 6 |
-| Something people **rely on** (lab tag only here) | **Application service** (CSDM) | Lab 7 **not completed** — tag `payments` ≠ installed app |
+| Something people **rely on** (lab tag only here) | **Application service** (CSDM) | Lab 7 **minimal map only** — `Payments(lab)` label ≠ real payments software |
 
 **Not the same thing:** A **cloud VM row** (`cmdb_ci_vm_instance`) is **not** a **Windows Server** CI (`cmdb_ci_win_server`). OS class needs guest discovery; **stopped** instance → **no OS inventory**.
 
@@ -621,43 +621,66 @@ The published lab starts with **read-only** mapping review. **This disposable PD
 
 ---
 
-## Lab 7 — Application service (**in progress — not complete**)
+## Lab 7 — Application service (**minimal demo checkpoint**)
 
 **Full lab instructions:** [Lab 7 — CSDM and the service graph](https://eltonaguiar.github.io/ServiceNow_ServiceGraph_Lab/labs/07-csdm-graph/)
 
-**Labs 8–11 not started.** Hands-on **not complete** — no service saved, no VM linked.
+**Labs 8–11 not started.** This demo reached a **minimal** manual application service and **View Map** — not the full lab curriculum, discovered topology, or CSDM business-application chain.
 
-**ELI5:** The CloudFormation **Application** tag `payments` is a **label for something you would care about if it broke** — not proof a real payments product was discovered on the server. CSDM asks you to group inventory under a **service instance** so “what breaks if this computer fails?” has a shape. **We have not finished that grouping.**
+**ELI5:** **Payments(lab)** is a **learning label** for something you would care about if it broke — wired manually to the stopped AWS computer **sgclab-app-01**. **No payment software** was discovered; the map is one entry arrow and one gear node, not a real production dependency graph.
 
-**Deeper steps (five population methods, roles, domains):** [Lab 7 hands-on section](https://eltonaguiar.github.io/ServiceNow_ServiceGraph_Lab/labs/07-csdm-graph/#hands-on-lab) on the full lab site — this demo stays abbreviated.
+**Outcome (honest limits):** No confirmed **`Depends on`** / `cmdb_rel_ci` rows verified in this pass. **Preview → Relationships** showed **NO RECORDS** while **PopulationMethodsSummary** still listed **Manual** / **sgclab-app-01**. **Traffic based discovery: Enabled** on the service is a UI flag — **not** evidence discovery ran or added nodes. **Set relationships** (business app, tech, business offering, parent) were left empty; **Event Management** was **not** selected.
+
+**Deeper steps:** [Lab 7 hands-on section](https://eltonaguiar.github.io/ServiceNow_ServiceGraph_Lab/labs/07-csdm-graph/#hands-on-lab) on the full lab site.
 
 ### Step 7.1 — Open Service Instances list
 
 1. Filter Navigator → `cmdb_ci_service_auto.list` (**Service Instances**).
 2. Left existing **ServiceNow Event Management** service untouched.
 
-### Step 7.2 — Provide Basic Details (step 1 of wizard)
+### Step 7.2 — Provide Basic Details (wizard step 1)
 
-1. Click **New** → **Create an Application Service** (three-step wizard: **Provide Basic Details** → **Populate** → **Preview** — not the classic **Service Instance** single **New Record** form with **Used for** *Production* / *Development*).
-2. Filled on the PDI (screenshot of this step **not** in repo yet): **Name** `Payments(lab)`; **Environment** `Development` (wizard field — not the same UI as classic **Used for**); **Operational status** **Non-Operational** (NonOperational).
+1. **New** → **Create an Application Service** (three-step wizard — not classic **Service Instance → New Record** with **Used for** *Production* / *Development*).
+2. Filled: **Name** `Payments(lab)`; **Environment** `Development` (wizard field); **Operational status** **Non-Operational**.
 
-**Not done:** **Next** through **Preview**, **Save**, or link `sgclab-app-01`.
+> **Screenshot missing:** step 1 form (bytes not available in this environment).
 
-> **Screenshot missing:** step 1 **Provide Basic Details** form (no bytes published yet).
+### Step 7.3 — Choose a Method (wizard step 2 — browse captures)
 
-### Step 7.3 — Populate: **Choose a Method** (step 2 — current stop)
+1. **Populate** → **Choose a Method** — five options in the list.
+2. Repo images below were taken **while browsing** the dropdown (**Manual** was chosen afterward on the PDI).
 
-1. After **Next** from step 1, open **Populate** → **Choose a Method** dialog.
-2. **Service Population Method** list shows five options: **Top-Down Discovery**, **Dynamic CI Groups**, **Tags**, **Manual**, **Dynamic Service**.
-3. **Lab intent:** choose **Manual** so you pick the lab VM by hand ([full lab hands-on](https://eltonaguiar.github.io/ServiceNow_ServiceGraph_Lab/labs/07-csdm-graph/#hands-on-lab) explains trade-offs). **Manual is not selected yet** in these captures — dropdown still on **-- Select one --** / browsing.
+![Lab 7 Populate dialog — Choose a Method (upper options)](assets/img/lab07/choose-population-method-top.png)
 
-![Lab 7 Populate dialog — Choose a Method with Service Population Method dropdown (upper options)](assets/img/lab07/choose-population-method-top.png)
+![Lab 7 Choose a Method — Manual and Dynamic Service rows](assets/img/lab07/choose-population-method-lower.png)
 
-![Lab 7 Choose a Method — Manual and Dynamic Service options in the same list](assets/img/lab07/choose-population-method-lower.png)
+### Step 7.4 — Manual population (after **Manual** selected)
 
-### Step 7.4 — Not reached
+1. **CMDB Table** `cmdb_ci_service_discovered`; **Class** **Virtual Machine Instance** [`cmdb_ci_vm_instance`].
+2. Selected CI **sgclab-app-01** (**Comments** blank on the VM row).
+3. **Save** — success banner; population method card added.
 
-**Preview**, saved application service, manual CI picker, dependency view — **not done**. Do **not** treat Lab 7 as complete.
+> **Screenshot missing:** manual picker and save banner.
+
+### Step 7.5 — Preview
+
+1. **Next** → **Preview**.
+2. **Relationships** tab: **empty / NO RECORDS**.
+3. **PopulationMethodsSummary:** **Manual** / **sgclab-app-01**.
+
+> **Screenshot missing:** Preview panes.
+
+### Step 7.6 — Done (create service)
+
+1. **Done** → green banner: application service **Payments(lab)** created; **Environment** `Development`; **Non-Operational**.
+
+> **Screenshot missing:** success banner.
+
+### Step 7.7 — View Map (demo checkpoint)
+
+1. **View Map** — **Payments(lab)** map: entry arrow → single node **sgclab-app-01**; properties show **Entry Points** `sgclab-app-01`, **Non-Operational**, description noting learning example (no payment software installed).
+
+![Lab 7 saved application service map — Payments(lab) with entry point sgclab-app-01 (privacy-reviewed crop)](assets/img/lab07/payments-lab-service-map.png)
 
 **Correction:** Application service **is** the service instance (`cmdb_ci_service_auto`) — do not add a separate generic `cmdb_ci_service_instance` layer for this wizard.
 

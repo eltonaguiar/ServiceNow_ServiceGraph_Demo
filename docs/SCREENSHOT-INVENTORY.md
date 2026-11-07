@@ -13,6 +13,7 @@ Tracks what is **in this repository** vs **missing**. Do not embed URLs that fai
 | `assets/img/lab06/etl-vm-name-mapping.png` | 6 | Stock Name ← `object.ec2Name` |
 | `assets/img/lab07/choose-population-method-top.png` | 7 | Populate — Choose a Method (upper list) |
 | `assets/img/lab07/choose-population-method-lower.png` | 7 | Same dialog — Manual / Dynamic Service rows |
+| `assets/img/lab07/payments-lab-service-map.png` | 7 | Saved **Payments(lab)** map — entry + sgclab-app-01 |
 
 **Provenance:** Copied from [ServiceNow_ServiceGraph_Lab](https://github.com/eltonaguiar/ServiceNow_ServiceGraph_Lab) `main` `assets/img/` (privacy-reviewed).
 
@@ -27,8 +28,8 @@ Tracks what is **in this repository** vs **missing**. Do not embed URLs that fai
 | Lab 6 step 6.5 | Edit Mapping: **Comments** ← `object.awsRegion` |
 | Lab 6 step 6.6 | VM list with **Comments** = `us-east-2` after Run Integration |
 | Lab 6 step 6.7 | Warning Log (NIC, storage volume, ABANDONED `cmdb_rel_ci`) |
-| Lab 7 step 7.2 | **Provide Basic Details** (Name / Environment / Operational status) |
-| Lab 7 after 7.3 | Manual selection, CI picker, Preview, saved service, graph |
+| Lab 7 step 7.2 | **Provide Basic Details** form |
+| Lab 7 steps 7.4–7.6 | Manual picker, Save banner, Preview (empty Relationships), Done banner |
 
 ## Next update
 
