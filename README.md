@@ -24,7 +24,7 @@ As shown in [Lab 7](https://eltonaguiar.github.io/ServiceNow_ServiceGraph_Lab/la
 | Labs 0–4 | Walkthrough + screenshots in this file | [Lab 4 — Run import](https://eltonaguiar.github.io/ServiceNow_ServiceGraph_Lab/labs/04-run-import/) |
 | Lab 5 | **Completed** — IRE look-only steps below | [Lab 5 — IRE](https://eltonaguiar.github.io/ServiceNow_ServiceGraph_Lab/labs/05-ire/) |
 | Lab 6 | **Completed** — hands-on mapping below (**deviates** from published read-only Part A) | [Lab 6 — ETL](https://eltonaguiar.github.io/ServiceNow_ServiceGraph_Lab/labs/06-etl-mappings/) · [demo deviations](docs/LAB-DEVIATIONS.md) |
-| Lab 7 | **In progress** — Service Instance form opened; **do not Submit**; **not saved** | [Lab 7 — CSDM](https://eltonaguiar.github.io/ServiceNow_ServiceGraph_Lab/labs/07-csdm-graph/) |
+| Lab 7 | **In progress** — wizard step 2 **Populate**; **Manual not chosen yet**; **not saved**; no VM linked | [Lab 7 — CSDM](https://eltonaguiar.github.io/ServiceNow_ServiceGraph_Lab/labs/07-csdm-graph/) |
 | Labs 8–11 | **Not done** | [Overview](https://eltonaguiar.github.io/ServiceNow_ServiceGraph_Lab/) |
 
 **Screenshot inventory:** [docs/SCREENSHOT-INVENTORY.md](docs/SCREENSHOT-INVENTORY.md) (included vs missing for this publish).
@@ -625,24 +625,41 @@ The published lab starts with **read-only** mapping review. **This disposable PD
 
 **Full lab instructions:** [Lab 7 — CSDM and the service graph](https://eltonaguiar.github.io/ServiceNow_ServiceGraph_Lab/labs/07-csdm-graph/)
 
-**Labs 8–11 not started.** Screenshot collection for Lab 7 is **ongoing** (not published in this repo yet).
+**Labs 8–11 not started.** Hands-on **not complete** — no service saved, no VM linked.
 
-**ELI5:** The CloudFormation **Application** tag `payments` is a **label for something you would care about if it broke** — not proof a real payments product was discovered on the server. CSDM asks you to group inventory under a **service instance** so “what breaks if this computer fails?” has a shape. **We did not save that grouping.**
+**ELI5:** The CloudFormation **Application** tag `payments` is a **label for something you would care about if it broke** — not proof a real payments product was discovered on the server. CSDM asks you to group inventory under a **service instance** so “what breaks if this computer fails?” has a shape. **We have not finished that grouping.**
+
+**Deeper steps (five population methods, roles, domains):** [Lab 7 hands-on section](https://eltonaguiar.github.io/ServiceNow_ServiceGraph_Lab/labs/07-csdm-graph/#hands-on-lab) on the full lab site — this demo stays abbreviated.
 
 ### Step 7.1 — Open Service Instances list
 
 1. Filter Navigator → `cmdb_ci_service_auto.list` (**Service Instances**).
 2. Left existing **ServiceNow Event Management** service untouched.
 
-### Step 7.2 — Start Create Application Service wizard
+### Step 7.2 — Provide Basic Details (step 1 of wizard)
 
-1. Click **New** → **Create an Application Service**.
-2. Wizard steps visible: **Provide Basic Details** → **Populate** → **Preview**.
-3. **Stopped here:** form mostly blank; discussed using name **Payments** (lab tag only), description noting learning exercise, **Non-Operational**, inspect **Environment** — **no fields saved, no VM linked, no dependency view.**
+1. Click **New** → **Create an Application Service** (three-step wizard: **Provide Basic Details** → **Populate** → **Preview** — not the classic **Service Instance** single **New Record** form with **Used for** *Production* / *Development*).
+2. Filled on the PDI (screenshot of this step **not** in repo yet): **Name** `Payments(lab)`; **Environment** `Development` (wizard field — not the same UI as classic **Used for**); **Operational status** **Non-Operational** (NonOperational).
+
+**Not done:** **Next** through **Preview**, **Save**, or link `sgclab-app-01`.
+
+> **Screenshot missing:** step 1 **Provide Basic Details** form (no bytes published yet).
+
+### Step 7.3 — Populate: **Choose a Method** (step 2 — current stop)
+
+1. After **Next** from step 1, open **Populate** → **Choose a Method** dialog.
+2. **Service Population Method** list shows five options: **Top-Down Discovery**, **Dynamic CI Groups**, **Tags**, **Manual**, **Dynamic Service**.
+3. **Lab intent:** choose **Manual** so you pick the lab VM by hand ([full lab hands-on](https://eltonaguiar.github.io/ServiceNow_ServiceGraph_Lab/labs/07-csdm-graph/#hands-on-lab) explains trade-offs). **Manual is not selected yet** in these captures — dropdown still on **-- Select one --** / browsing.
+
+![Lab 7 Populate dialog — Choose a Method with Service Population Method dropdown (upper options)](assets/img/lab07/choose-population-method-top.png)
+
+![Lab 7 Choose a Method — Manual and Dynamic Service options in the same list](assets/img/lab07/choose-population-method-lower.png)
+
+### Step 7.4 — Not reached
+
+**Preview**, saved application service, manual CI picker, dependency view — **not done**. Do **not** treat Lab 7 as complete.
 
 **Correction:** Application service **is** the service instance (`cmdb_ci_service_auto`) — do not add a separate generic `cmdb_ci_service_instance` layer for this wizard.
-
-**Screenshot pending:** Lab 7 wizard (Provide Basic Details step, mostly blank). A maintainer attachment URL was **not** published to this repo: HTTP **404** on fetch, so README intentionally has **no image embed** here. Next update: add `assets/img/lab07/application-service-wizard-start.png` when the file is in the repo.
 
 ---
 

@@ -11,6 +11,8 @@ Tracks what is **in this repository** vs **missing**. Do not embed URLs that fai
 | `assets/img/lab05/vm-identification-rule.png` | 5 | Dependent rule, Object ID |
 | `assets/img/lab05/vm-dependent-relationships.png` | 5 | Relationship vocabulary |
 | `assets/img/lab06/etl-vm-name-mapping.png` | 6 | Stock Name ← `object.ec2Name` |
+| `assets/img/lab07/choose-population-method-top.png` | 7 | Populate — Choose a Method (upper list) |
+| `assets/img/lab07/choose-population-method-lower.png` | 7 | Same dialog — Manual / Dynamic Service rows |
 
 **Provenance:** Copied from [ServiceNow_ServiceGraph_Lab](https://github.com/eltonaguiar/ServiceNow_ServiceGraph_Lab) `main` `assets/img/` (privacy-reviewed).
 
@@ -25,14 +27,9 @@ Tracks what is **in this repository** vs **missing**. Do not embed URLs that fai
 | Lab 6 step 6.5 | Edit Mapping: **Comments** ← `object.awsRegion` |
 | Lab 6 step 6.6 | VM list with **Comments** = `us-east-2` after Run Integration |
 | Lab 6 step 6.7 | Warning Log (NIC, storage volume, ABANDONED `cmdb_rel_ci`) |
-| Lab 7 step 7.2 | Create Application Service wizard (blank form at start) |
-
-## Not embedded (verified unavailable)
-
-| Asset | Status |
-|-------|--------|
-| `user-attachments` asset `3cb4286f-d817-4799-a007-c2c82069c432` | **HTTP 404** on publish verification — **removed from README**; use repo file `assets/img/lab07/` when added |
+| Lab 7 step 7.2 | **Provide Basic Details** (Name / Environment / Operational status) |
+| Lab 7 after 7.3 | Manual selection, CI picker, Preview, saved service, graph |
 
 ## Next update
 
-When PNGs are added under `assets/img/lab06/` and `assets/img/lab07/`, replace “Screenshot missing” / “Screenshot pending” blocks in README and refresh this file.
+When PNGs are added under `assets/img/lab06/` and remaining `assets/img/lab07/`, replace “Screenshot missing” blocks in README and refresh this file.
