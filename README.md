@@ -258,3 +258,14 @@ On the other tab , I pressed Previous-->then next, then refresh and pasted in th
 Thus, attaching the policy to the user (you need to check the checkbox beside the Policy, see this screenshot)
 
 <img width="1467" height="535" alt="image" src="https://github.com/user-attachments/assets/155d4944-5f5c-413b-bbf2-209eb104d1f3" />
+
+The correct policy is selected. Leave Set permissions boundary unchanged, then:
+
+Click Next.
+Confirm the username is servicenow-sgc-lab and the attached policy is ServiceNowSGCLabReadOnly.
+Click Create user.
+Open the new user → Security credentials → Create access key.
+Choose Application running outside AWS, then follow the prompts.
+Keep the secret access key private—don’t include it in screenshots or chat.
+
+<img width="1434" height="565" alt="image" src="https://github.com/user-attachments/assets/d0fe6f81-24fb-4f31-9400-03874bb8b3d5" />
