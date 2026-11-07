@@ -212,4 +212,8 @@ Filter Navigator → Process Automation → Flow Designer. If it opens, Integrat
 If Flow Designer is missing, the cloud REST flow cannot run — go to the fallback path.
 <img width="211" height="214" alt="image" src="https://github.com/user-attachments/assets/d51bbb34-ca93-4fa7-9c66-fe2b1c0b1ea7" />
 
+AWS-Setup>
+<img width="331" height="739" alt="image" src="https://github.com/user-attachments/assets/66df954c-f397-462a-a4b1-94b90650b18d" />
+
+
 
