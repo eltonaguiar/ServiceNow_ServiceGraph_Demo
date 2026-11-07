@@ -24,7 +24,7 @@ As shown in [Lab 7](https://eltonaguiar.github.io/ServiceNow_ServiceGraph_Lab/la
 | Labs 0–4 | Walkthrough + screenshots in this file | [Lab 4 — Run import](https://eltonaguiar.github.io/ServiceNow_ServiceGraph_Lab/labs/04-run-import/) |
 | Lab 5 | **Completed** — IRE look-only steps below | [Lab 5 — IRE](https://eltonaguiar.github.io/ServiceNow_ServiceGraph_Lab/labs/05-ire/) |
 | Lab 6 | **Completed** — hands-on mapping below (**deviates** from published read-only Part A) | [Lab 6 — ETL](https://eltonaguiar.github.io/ServiceNow_ServiceGraph_Lab/labs/06-etl-mappings/) · [demo deviations](docs/LAB-DEVIATIONS.md) |
-| Lab 7 | **Started only** — wizard opened, **not saved** | [Lab 7 — CSDM](https://eltonaguiar.github.io/ServiceNow_ServiceGraph_Lab/labs/07-csdm-graph/) |
+| Lab 7 | **In progress** — Service Instance form opened; **do not Submit**; **not saved** | [Lab 7 — CSDM](https://eltonaguiar.github.io/ServiceNow_ServiceGraph_Lab/labs/07-csdm-graph/) |
 | Labs 8–11 | **Not done** | [Overview](https://eltonaguiar.github.io/ServiceNow_ServiceGraph_Lab/) |
 
 **Screenshot inventory:** [docs/SCREENSHOT-INVENTORY.md](docs/SCREENSHOT-INVENTORY.md) (included vs missing for this publish).
@@ -155,6 +155,8 @@ Newer accounts may show a **Free plan** with **credits** and a **~six-month** wi
 
 ## PDI
 
+**Full lab instructions (Lab 0):** [Lab 0 — Prerequisites](https://eltonaguiar.github.io/ServiceNow_ServiceGraph_Lab/labs/00-prerequisites/)
+
 Get your PDI at [developer.servicenow.com](https://developer.servicenow.com).
 
 Install these, to avoid delays, it will take some time to install!
@@ -174,6 +176,8 @@ under search, find and then press Install. Most important one for the main lab i
 ---
 
 ## Setup your AWS Account
+
+**Full lab instructions (Lab 0):** [Lab 0 — Prerequisites](https://eltonaguiar.github.io/ServiceNow_ServiceGraph_Lab/labs/00-prerequisites/) (account, budget, region — before [Lab 1](https://eltonaguiar.github.io/ServiceNow_ServiceGraph_Lab/labs/01-aws-inventory/))
 
 > [!WARNING]
 > Credit Card Required. Be careful, and stop the instance on the same day.
@@ -273,6 +277,8 @@ The budget alarm is your only early warning, which is why it is step 2 and not a
 
 ## Optional — Setup your Free Azure Account (Lab 8, if you choose to)
 
+**Full lab instructions (Lab 8):** [Lab 8 — Multisource CMDB with Azure](https://eltonaguiar.github.io/ServiceNow_ServiceGraph_Lab/labs/08-multisource-azure/)
+
 *(Lab 8 only)*
 
 1. Create the account at [azure.microsoft.com/free](https://azure.microsoft.com/free).
@@ -283,6 +289,9 @@ You can complete Labs 0–7 and 9–11 without Azure.
 
 
 # LAB 1 
+
+**Full lab instructions:** [Lab 1 — Build a real AWS inventory](https://eltonaguiar.github.io/ServiceNow_ServiceGraph_Lab/labs/01-aws-inventory/)
+
 Get the Template YAML lab-stack.yaml https://github.com/eltonaguiar/ServiceNow_ServiceGraph_Lab/blob/main/aws/lab-stack.yaml , then upload it under the Create Stack page
 <img width="1772" height="796" alt="image" src="https://github.com/user-attachments/assets/0aeb4c8a-6fd5-4b23-96dd-6ed234ea9390" />
 proceed to next step 
@@ -327,6 +336,9 @@ Account name could be acquired by going to Profile under the top right User prof
 
 
 # Lab 2 , verify apps, installed
+
+**Full lab instructions:** [Lab 2 — Install the connector](https://eltonaguiar.github.io/ServiceNow_ServiceGraph_Lab/labs/02-sgc-install/)
+
 <img width="1882" height="567" alt="image" src="https://github.com/user-attachments/assets/7c5d73e2-dbc3-466f-b4ff-013f73caf7ca" />
 If not installed, then Install 
 Service Graph Connector for AWS.
@@ -362,6 +374,9 @@ Get Started
 
 
 # Lab 3 
+
+**Full lab instructions:** [Lab 3 — Read-only IAM and the connection](https://eltonaguiar.github.io/ServiceNow_ServiceGraph_Lab/labs/03-iam-connection/)
+
 to get there if in Console you can use the top menu Search and type IAM, then follow the link
 <img width="1894" height="152" alt="image" src="https://github.com/user-attachments/assets/cce9a5ed-f292-4f52-aef9-bfd341e55954" />
 
@@ -461,7 +476,9 @@ You should reach Specify stack details, where the parameters appear.
 
 # Lab 4 — Standalone AWS imports (verified minimum)
 
-Procedure: [Lab 4 — Run the import](https://eltonaguiar.github.io/ServiceNow_ServiceGraph_Lab/labs/04-run-import/). Run **one** scheduled job at a time; wait until status is **Processed** (Loaded or Pending is not done).
+**Full lab instructions:** [Lab 4 — Run the import](https://eltonaguiar.github.io/ServiceNow_ServiceGraph_Lab/labs/04-run-import/)
+
+Run **one** scheduled job at a time; wait until status is **Processed** (Loaded or Pending is not done).
 
 | Order | Job (name may include numeric suffix on your instance) |
 |------:|-----|
@@ -501,7 +518,9 @@ Demo repo screenshots (earlier labs) — VPC list examples (from this repo’s p
 
 ## Lab 5 — Read IRE (steps we actually ran)
 
-Curriculum: [Lab 5 — Read the IRE results](https://eltonaguiar.github.io/ServiceNow_ServiceGraph_Lab/labs/05-ire/). **We did not edit identification rules.**
+**Full lab instructions:** [Lab 5 — Read the IRE results](https://eltonaguiar.github.io/ServiceNow_ServiceGraph_Lab/labs/05-ire/)
+
+**We did not edit identification rules.**
 
 ### Step 5.1 — Confirm one cloud VM row
 
@@ -531,7 +550,9 @@ Curriculum: [Lab 5 — Read the IRE results](https://eltonaguiar.github.io/Servi
 
 ## Lab 6 — ETL mapping (steps we actually ran; deviates from published Lab 6 Part A)
 
-Curriculum: [Lab 6 — Change an ETL mapping](https://eltonaguiar.github.io/ServiceNow_ServiceGraph_Lab/labs/06-etl-mappings/) starts with **read-only** mapping review. **This disposable PDI path edited the live map** — see [docs/LAB-DEVIATIONS.md](docs/LAB-DEVIATIONS.md). **Not a production pattern.**
+**Full lab instructions:** [Lab 6 — Change an ETL mapping](https://eltonaguiar.github.io/ServiceNow_ServiceGraph_Lab/labs/06-etl-mappings/)
+
+The published lab starts with **read-only** mapping review. **This disposable PDI path edited the live map** — see [docs/LAB-DEVIATIONS.md](docs/LAB-DEVIATIONS.md). **Not a production pattern.**
 
 ### Step 6.1 — Open the EC2 instance ETL definition
 
@@ -600,9 +621,11 @@ Curriculum: [Lab 6 — Change an ETL mapping](https://eltonaguiar.github.io/Serv
 
 ---
 
-## Lab 7 — Application service (**START only — not complete**)
+## Lab 7 — Application service (**in progress — not complete**)
 
-Curriculum: [Lab 7 — CSDM and the service graph](https://eltonaguiar.github.io/ServiceNow_ServiceGraph_Lab/labs/07-csdm-graph/). **Labs 8–11 not started.**
+**Full lab instructions:** [Lab 7 — CSDM and the service graph](https://eltonaguiar.github.io/ServiceNow_ServiceGraph_Lab/labs/07-csdm-graph/)
+
+**Labs 8–11 not started.** Screenshot collection for Lab 7 is **ongoing** (not published in this repo yet).
 
 **ELI5:** The CloudFormation **Application** tag `payments` is a **label for something you would care about if it broke** — not proof a real payments product was discovered on the server. CSDM asks you to group inventory under a **service instance** so “what breaks if this computer fails?” has a shape. **We did not save that grouping.**
 
@@ -625,7 +648,7 @@ Curriculum: [Lab 7 — CSDM and the service graph](https://eltonaguiar.github.io
 
 ## Lab 4 reference images (in repo — privacy-reviewed copies)
 
-From [Lab 4](https://eltonaguiar.github.io/ServiceNow_ServiceGraph_Lab/labs/04-run-import/); chronological use is in the full lab page. Copies shipped in this repo:
+**Full lab instructions:** [Lab 4 — Run the import](https://eltonaguiar.github.io/ServiceNow_ServiceGraph_Lab/labs/04-run-import/) (chronological steps and captions on the full lab page). Copies shipped in this repo:
 
 | File | Use |
 |------|-----|
