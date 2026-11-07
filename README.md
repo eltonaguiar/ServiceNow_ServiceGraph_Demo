@@ -202,3 +202,7 @@ https://dev296154.service-now.com/now/nav/ui/classic/params/target/sys_store_app
 <img width="1700" height="166" alt="image" src="https://github.com/user-attachments/assets/21475cfe-c336-4357-b01a-53c5466a7b5e" />
 ServiceNow 
 Service Graph Connector for AWS --> sn_aws_integ
+
+
+All dependencies, should have been installed with it e.g. 
+<img width="907" height="182" alt="image" src="https://github.com/user-attachments/assets/54e8501c-2f46-4346-b029-c7a5e9b259e1" />
