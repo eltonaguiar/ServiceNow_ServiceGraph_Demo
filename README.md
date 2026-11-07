@@ -188,3 +188,12 @@ Account name could be acquired by going to Profile under the top right User prof
 <img width="258" height="404" alt="image" src="https://github.com/user-attachments/assets/15c77108-4737-4246-a92b-b65c6d67c0cb" />
 <img width="1808" height="698" alt="image" src="https://github.com/user-attachments/assets/1fe78c67-7757-4e21-bb42-210c92c0c04a" />
 
+
+
+# Lab 2 , verify apps, instaleld
+<img width="1882" height="567" alt="image" src="https://github.com/user-attachments/assets/7c5d73e2-dbc3-466f-b4ff-013f73caf7ca" />
+If not installed, then Install 
+Service Graph Connector for AWS.
+
+Navigate  to sys_store_app_list.do (you can type under filter navigator to get there)
+https://dev296154.service-now.com/now/nav/ui/classic/params/target/sys_store_app_list.do%3Fsysparm_first_row%3D1%26sysparm_query%3DGOTOnameLIKEaws%26sysparm_query_encoded%3DGOTOnameLIKEaws%26sysparm_view%3D
