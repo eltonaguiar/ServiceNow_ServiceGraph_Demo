@@ -46,6 +46,9 @@ under search, find and then press Install. Most important one for the main lab i
 1. Create the account at [aws.amazon.com/free](https://aws.amazon.com/free). A card is required for identity verification.
 2. **Immediately** set a budget alarm. The **Settings → Billing** page (credits and days remaining) does **not** have budgets. Open the **Billing and Cost Management** console instead:
    - Direct link: [https://us-east-1.console.aws.amazon.com/cost-management](https://us-east-1.console.aws.amazon.com/cost-management) (or search for **Budgets** in the top search bar).
+   - You will see something like this when you click your profile on the top right
+   - <img width="283" height="433" alt="image" src="https://github.com/user-attachments/assets/87695000-bf82-4c95-97db-47a78b5f1337" />
+
   
    - Alternative way: <img width="1305" height="332" alt="image" src="https://github.com/user-attachments/assets/16a65d14-301f-4f1c-8c45-5fe95252e5bc" /> go to Billing & Cost Management
    - Choose **Budgets** → **Create budget** → **Use a template (simplified)**.
