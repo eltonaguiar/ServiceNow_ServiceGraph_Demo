@@ -206,3 +206,10 @@ Service Graph Connector for AWS --> sn_aws_integ
 
 All dependencies, should have been installed with it e.g. 
 <img width="907" height="182" alt="image" src="https://github.com/user-attachments/assets/54e8501c-2f46-4346-b029-c7a5e9b259e1" />
+
+Confirm IntegrationHub
+Filter Navigator → Process Automation → Flow Designer. If it opens, IntegrationHub is active.
+If Flow Designer is missing, the cloud REST flow cannot run — go to the fallback path.
+<img width="211" height="214" alt="image" src="https://github.com/user-attachments/assets/d51bbb34-ca93-4fa7-9c66-fe2b1c0b1ea7" />
+
+
