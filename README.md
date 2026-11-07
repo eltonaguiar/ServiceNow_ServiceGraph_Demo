@@ -240,3 +240,13 @@ Next step --> Permission-->Create Policy-->JSON..
 paste the contents of https://github.com/eltonaguiar/ServiceNow_ServiceGraph_Lab/blob/main/aws/iam-readonly-lab-policy.json
 
 
+<img width="1897" height="824" alt="image" src="https://github.com/user-attachments/assets/627450ac-776e-4702-856f-974febfca307" />
+Enter these details:
+
+Policy name: ServiceNowSGCLabReadOnly (a suggested name for this lab).
+Description: Read-only AWS inventory permissions for the ServiceNow Service Graph lab.
+Tags: optional—leave empty.
+Click Create policy. Then return to the user-creation tab, refresh the policy list, search for ServiceNowSGCLabReadOnly, select it, and continue creating servicenow-sgc-lab without console access.
+
+Creating the policy doesn't attach it automatically.
+
