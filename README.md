@@ -25,7 +25,11 @@ Get your PDI at [developer.servicenow.com](https://developer.servicenow.com).
 ### Free AWS account (Amazon Web Services)
 
 1. Create the account at [aws.amazon.com/free](https://aws.amazon.com/free). A card is required for identity verification.
-2. **Immediately** set a budget alarm: **Billing and Cost Management → Budgets → Create budget** → Zero-spend budget or a fixed **$1–5** monthly budget with an email alert at 50%.
+2. **Immediately** set a budget alarm. The **Settings → Billing** page (credits and days remaining) does **not** have budgets. Open the **Billing and Cost Management** console instead:
+   - Direct link: [https://us-east-1.console.aws.amazon.com/cost-management](https://us-east-1.console.aws.amazon.com/cost-management) (or search for **Budgets** in the top search bar).
+   - Choose **Budgets** → **Create budget** → **Use a template (simplified)**.
+   - Pick **Zero spend budget** or a **Monthly cost budget** of **$1–5** with an alert at 50%.
+   - Enter your email, create the budget, and **verify the email** so alerts actually send.
 3. Choose one region and stick to it for the whole lab (for example `ca-central-1`). Multi-region imports multiply the data and the surprises.
 4. Note your **12-digit account ID** (top-right account menu).
 
