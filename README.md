@@ -11,9 +11,9 @@ ServiceNow PDI
 
 Following this Lab I generated with AI, specifically to teach the Service Graph Connector, and get something working for individuals who don't have SCCM / Windows Server. So if you have a typical Windows 11 Machine or maybe Linux...
 
-**Lab:** https://eltonaguiar.github.io/ServiceNow_ServiceGraph_Lab/labs/00-prerequisites/
+**Full lab (authoritative detail):** [ServiceNow Service Graph Lab](https://eltonaguiar.github.io/ServiceNow_ServiceGraph_Lab/) — start at [prerequisites](https://eltonaguiar.github.io/ServiceNow_ServiceGraph_Lab/labs/00-prerequisites/).
 
-Below is a condensed version from my actual experience in running this lab.
+Below is a **light PoC walkthrough** from running that lab on a PDI; it is not the full curriculum. Use the lab site for step-by-step depth and troubleshooting.
 
 ---
 
@@ -190,7 +190,7 @@ Account name could be acquired by going to Profile under the top right User prof
 
 
 
-# Lab 2 , verify apps, instaleld
+# Lab 2 , verify apps, installed
 <img width="1882" height="567" alt="image" src="https://github.com/user-attachments/assets/7c5d73e2-dbc3-466f-b4ff-013f73caf7ca" />
 If not installed, then Install 
 Service Graph Connector for AWS.
@@ -304,7 +304,7 @@ Back in ServiceNow — Guided Setup
 AWS Setup Instructions task → open it, confirm the recorder group is the one you've done, and mark it complete. Aggregator, SSM, SendCommand, key rotation, and email notification are the skippable groups — single account, no deep discovery, lab account.
 Move to the connection/configuration section of guided setup and confirm it points at what you built in Lab 3: your 12-digit account ID, the one region, and the credential record for servicenow-sgc-lab. Leave the aggregator field blank and skip any SSM/deep-discovery role step — both are the optional paths.
 Run the Diagnostic Tool at the end of guided setup. Fix only what it flags.
-Click Test connection / Validate — green here is your guided-setup finish line. Leave the scheduled import jobs alone; running the first import is Lab 4.
+Click Test connection / Validate when offered — green is the guided-setup finish line. In **standalone** mode, Test Connection may report *unsupported*; that is expected for this path, not a setup failure. Leave scheduled import jobs alone until Lab 4.
 One thing to check before Lab 4, so it doesn't fail on you: your Lab 3 policy grants EC2/S3/SSM/Organizations/IAM/Tag reads, but the connector's core data call is config:ListDiscoveredResources — it reads hardware out of AWS Config, not straight from EC2. Compare your policy against the prerequisites policy that ships in the scripts download (that's the authoritative minimum for your connector version) and add just the missing config: read actions — ListDiscoveredResources and its Describe/Get companions. Don't swap in ReadOnlyAccess wholesale; three or four lines is the whole fix.
 
 Cost check: the only meter running is AWS Config recording (~$0.003 per recorded item) plus pennies of S3 storage. When the lab series is finished, delete the sg-aws-config stack and empty its bucket so the recorder doesn't keep billing in the background.
@@ -324,21 +324,40 @@ You should reach Specify stack details, where the parameters appear.
 
 
 
-===========
-Lots of extra steps, lab page itself to be updated..
+# Lab 4 — Standalone AWS imports (verified minimum)
 
-As for the results after running various import schedules
-See also this for a similar ServiceNow community lab/steps
-https://www.servicenow.com/community/cmdb-articles/aws-service-graph-connector/ta-p/2958151
+Procedure and later labs: [ServiceNow Service Graph Lab](https://eltonaguiar.github.io/ServiceNow_ServiceGraph_Lab/). Run **one** scheduled job at a time; wait until status is **Processed** (Loaded or Pending is not done).
 
+| Order | Job |
+|------:|-----|
+| 1 | `SG-AWS-Service-Account100` |
+| 2 | `SG-AWS-Datacenters110` |
+| 3 | `SG-AWS-VPC120` |
+| 4 | `SG-AWS-Subnets130` |
+| 5 | `SG-AWS-Security-Group150` |
+| 6 | `SG-AWS-EC2180` |
 
+- Keep parent **`SG-AWS-Organization`** inactive — activating it cascades many jobs (e.g. SSM, EKS); not needed for this tiny flow.
+- **`SG-AWS-NetworkInterface`** (and similar) is optional; with only the lab’s four AWS Config recorded types and **0 rows** for NIC in this account, you can skip it here.
+- Import **datacenters before VPC**. If datacenter lookup is missing, IRE can still show **Processed** with no errors but leave a **partial** payload for downstream CIs.
 
-2 VPCs
+**Where to look in CMDB** (current connector tables — not legacy `cmdb_ci_vpc` / `cmdb_ci_ec2_instance`):
+
+| AWS object | Table |
+|------------|--------|
+| Account | `cmdb_ci_cloud_service_account` |
+| Datacenter | `cmdb_ci_aws_datacenter` |
+| VPC | `cmdb_ci_network` |
+| Subnet | `cmdb_ci_cloud_subnet` |
+| Security group | `cmdb_ci_compute_security_group` |
+| EC2 | `cmdb_ci_vm_instance` |
+
+**PoC success (inventory milestone, not full graph hygiene):** After the stack from Lab 1, expect **one** lab VM (your instance ID from CloudFormation **Resources**), with **Environment / Application / Owner** tags on the CI. Re-running the same import set should still leave **one** VM (no duplicate flood). A **stopped** instance is fine — **Off** state is imported; you do not need to start the OS for basic inventory. Discovery Source was not validated in this pass; storage, NIC, and relationship rows may be partial — treat this as proof the connector path works, not a fully reconciled Service Graph.
+
+See also: [AWS Service Graph Connector (ServiceNow Community)](https://www.servicenow.com/community/cmdb-articles/aws-service-graph-connector/ta-p/2958151).
+
+VPCs appear under **CMDB → Network** (`cmdb_ci_network_list.do`). Example after import:
 
 <img width="1696" height="266" alt="image" src="https://github.com/user-attachments/assets/9af3c811-ee6a-4a1b-910e-24a14895f83f" />
 
-in ServiceNow
-
-
-https://dev296154.service-now.com/now/nav/ui/classic/params/target/cmdb_ci_network_list.do%3Fsysparm_clear_stack%3Dtrue
 <img width="1616" height="218" alt="image" src="https://github.com/user-attachments/assets/9c5e51da-199b-4151-8e62-5c41ca195579" />
