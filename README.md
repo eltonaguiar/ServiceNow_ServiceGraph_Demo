@@ -40,6 +40,33 @@ Accounts created after mid-2025 are on a **credit-based Free plan**, not the old
 >
 > `t3.micro` / `t2.micro` is only “free” inside a monthly hour allowance and only in a new account. An instance left running past the allowance bills normally.
 
+<details>
+<summary><strong>How much does it actually cost? (AWS vs Azure)</strong></summary>
+
+### Approximate rates (late 2026, cheap US region)
+
+| Item | AWS (t3.micro) | Azure (B1s) |
+|------|----------------|-------------|
+| VM compute | ~$0.0104/hour | ~$0.0104/hour |
+| Public IPv4 | $0.005/hour (even if stopped) | ~$0.004–0.005/hour |
+| Small disk | a few cents | a few cents |
+| New-account free tier | $100–$200 credits (6 months) | $200 credit (30 days) + 750 free B1s hours/month for 12 months |
+
+### Example costs for one lab VM
+
+| Duration | Running | Stopped / deallocated (IP + disk kept) |
+|----------|---------|----------------------------------------|
+| **8 hours** | ~$0.12 | ~$0.04 |
+| **2 days** | ~$0.75–$1.00 | ~$0.25–$0.40 |
+| **1 month** | ~$11–12 | ~$4 |
+
+**Notes**
+- On AWS, a public IPv4 keeps charging after you stop the instance.
+- On Azure, you must **deallocate** the VM (not just shut down inside the OS) to stop compute charges. Static IPs and managed disks still cost money.
+- These amounts are usually covered by free-tier credits on a new account. The risk is forgetting resources for weeks.
+
+</details>
+
 **Rule for this lab:**
 
 > Create → verify → stop the instance → delete the stack the same day.  
