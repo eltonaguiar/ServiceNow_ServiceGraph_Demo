@@ -179,5 +179,12 @@ Stop the Instance
 <img width="724" height="444" alt="image" src="https://github.com/user-attachments/assets/fcbf7e18-5482-4467-a176-988dbecb855f" />
 Stopping it avoids running compute charges while you’re not using it. For this inventory lab, the connector can still discover a stopped instance and its tags; you don’t need the operating system running. Stop, don’t terminate—storage can still incur charges.
 
+So per Lab 1 you should have these documents:
+<img width="601" height="278" alt="image" src="https://github.com/user-attachments/assets/d62fa693-094d-432c-8d5f-7d0fa5775c8f" />
+For Region its also in the URL
 
+
+Account name could be acquired by going to Profile under the top right User profile menu
+<img width="258" height="404" alt="image" src="https://github.com/user-attachments/assets/15c77108-4737-4246-a92b-b65c6d67c0cb" />
+<img width="1808" height="698" alt="image" src="https://github.com/user-attachments/assets/1fe78c67-7757-4e21-bb42-210c92c0c04a" />
 
