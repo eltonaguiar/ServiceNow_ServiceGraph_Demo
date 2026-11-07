@@ -24,14 +24,28 @@ Get your PDI at [developer.servicenow.com](https://developer.servicenow.com).
 
 ### Free AWS account (Amazon Web Services)
 
+
+
+
 1. Create the account at [aws.amazon.com/free](https://aws.amazon.com/free). A card is required for identity verification.
 2. **Immediately** set a budget alarm. The **Settings → Billing** page (credits and days remaining) does **not** have budgets. Open the **Billing and Cost Management** console instead:
    - Direct link: [https://us-east-1.console.aws.amazon.com/cost-management](https://us-east-1.console.aws.amazon.com/cost-management) (or search for **Budgets** in the top search bar).
+  
+   - Alternative way: <img width="1305" height="332" alt="image" src="https://github.com/user-attachments/assets/16a65d14-301f-4f1c-8c45-5fe95252e5bc" /> go to Billing & Cost Management
    - Choose **Budgets** → **Create budget** → **Use a template (simplified)**.
    - Pick **Zero spend budget** or a **Monthly cost budget** of **$1–5** with an alert at 50%.
+  
+I put a zero spend budget:
+<img width="1029" height="312" alt="image" src="https://github.com/user-attachments/assets/603f33de-0eef-4b1f-b90c-f0e2bde6e692" />
+
    - Enter your email, create the budget, and **verify the email** so alerts actually send.
-3. Choose one region and stick to it for the whole lab (for example `ca-central-1`). Multi-region imports multiply the data and the surprises.
-4. Note your **12-digit account ID** (top-right account menu).
+4. Choose one region and stick to it for the whole lab (for example `ca-central-1`). Multi-region imports multiply the data and the surprises.
+5. Note your **12-digit account ID** (top-right account menu).
+
+5
+
+
+
 
 ### What “free tier” actually means in 2026
 
