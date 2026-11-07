@@ -312,3 +312,33 @@ Cost check: the only meter running is AWS Config recording (~$0.003 per recorded
 
 so 2 stacks, the first one from earlier and this one
 <img width="359" height="368" alt="image" src="https://github.com/user-attachments/assets/21c914ad-279c-46a7-bd61-7b5423477f79" />
+
+a few tweaks. update stack
+make direct update
+<img width="1867" height="794" alt="image" src="https://github.com/user-attachments/assets/5be9a2d5-e509-467f-820a-95ad1dc6fff0" />
+Your console shows an extra menu I missed. With sg-aws-config selected:
+
+In the open Update stack menu, click Make a direct update.
+On the next page, choose Use existing template, then Next.
+You should reach Specify stack details, where the parameters appear.
+
+
+
+===========
+Lots of extra steps, lab page itself to be updated..
+
+As for the results after running various import schedules
+See also this for a similar ServiceNow community lab/steps
+https://www.servicenow.com/community/cmdb-articles/aws-service-graph-connector/ta-p/2958151
+
+
+
+2 VPCs
+
+<img width="1696" height="266" alt="image" src="https://github.com/user-attachments/assets/9af3c811-ee6a-4a1b-910e-24a14895f83f" />
+
+in ServiceNow
+
+
+https://dev296154.service-now.com/now/nav/ui/classic/params/target/cmdb_ci_network_list.do%3Fsysparm_clear_stack%3Dtrue
+<img width="1616" height="218" alt="image" src="https://github.com/user-attachments/assets/9c5e51da-199b-4151-8e62-5c41ca195579" />
