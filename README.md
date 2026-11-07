@@ -269,3 +269,7 @@ Choose Application running outside AWS, then follow the prompts.
 Keep the secret access key private—don’t include it in screenshots or chat.
 
 <img width="1434" height="565" alt="image" src="https://github.com/user-attachments/assets/d0fe6f81-24fb-4f31-9400-03874bb8b3d5" />
+
+
+User Created Successfully
+<img width="1912" height="406" alt="image" src="https://github.com/user-attachments/assets/8b85466c-14ba-46f0-bac5-5ed9ccb5af4a" />
