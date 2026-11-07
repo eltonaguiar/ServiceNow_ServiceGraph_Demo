@@ -95,6 +95,9 @@ flowchart TB
 | Layer | What you have | Lab count (template) | Notes |
 |-------|----------------|----------------------|--------|
 | **AWS resources** | VPC, subnet, SG, EC2 | 1 each from stack | Plus account **default VPC** in console (not from template) |
+
+**Exact resources from stack `sgclab`** ([template](https://github.com/eltonaguiar/ServiceNow_ServiceGraph_Lab/blob/main/aws/lab-stack.yaml)): `sgclab-vpc` (`10.42.0.0/16`), `sgclab-subnet` (`10.42.1.0/24`, first AZ in region), `sgclab-sg` (no inbound rules), `sgclab-app-01` (`t3.micro`, Amazon Linux 2023 AMI via SSM parameter). Tags include **Environment** `lab`, **Application** `payments`, **Owner** (parameter).
+
 | **Config recordings** | Four resource types only | 0 rows for **NetworkInterface** / **Volume** in walkthrough | Optional job `SG-AWS-NetworkInterface` skipped |
 | **CMDB CIs** | After imports 100→180 | 1 VM, 2 VPC **network** rows typical | Depends on IRE; partial NIC/volume relations possible |
 
@@ -127,6 +130,20 @@ flowchart TB
 | Schedules | Service Graph Connector for AWS → **Scheduled Imports** | exact menu path varies by release |
 | ETL map | **IntegrationHub ETL** → **Configuration** | definition `SG-AWS-EC2-Instance` |
 | Application service (Lab 7) | `cmdb_ci_service_auto.list` | **Service Instances** |
+
+### Import schedule → CMDB table (standalone orders used on this PDI)
+
+| Order | Schedule | AWS inventory item | CMDB table |
+|------:|----------|-------------------|------------|
+| 100 | `SG-AWS-Service-Account` | Cloud account | `cmdb_ci_cloud_service_account` |
+| 110 | `SG-AWS-Datacenters` | Region / AZ campus | `cmdb_ci_aws_datacenter` |
+| 120 | `SG-AWS-VPC` | VPC (private network) | `cmdb_ci_network` |
+| 130 | `SG-AWS-Subnets` | Subnet | `cmdb_ci_cloud_subnet` |
+| 140 | `SG-AWS-NetworkInterface` | *(optional — 0 Config rows in this lab)* | — |
+| 150 | `SG-AWS-Security-Group` | Security group | `cmdb_ci_compute_security_group` |
+| 180 | `SG-AWS-EC2` | Rented computer (EC2) | `cmdb_ci_vm_instance` |
+
+Schedule labels on your instance may append a numeric suffix (e.g. `…100`); match by name stem.
 
 ---
 
@@ -602,11 +619,7 @@ Curriculum: [Lab 7 — CSDM and the service graph](https://eltonaguiar.github.io
 
 **Correction:** Application service **is** the service instance (`cmdb_ci_service_auto`) — do not add a separate generic `cmdb_ci_service_instance` layer for this wizard.
 
-Author-provided wizard capture (URL supplied by maintainer; agent could not download for local copy — embed for GitHub render):
-
-<img width="935" height="719" alt="Lab 7 start: Create an Application Service wizard on Provide Basic Details step, mostly blank, not saved" src="https://github.com/user-attachments/assets/3cb4286f-d817-4799-a007-c2c82069c432" />
-
-> If the image above does not render in your viewer, re-attach `3cb4286f-d817-4799-a007-c2c82069c432` to the demo repo under `assets/img/lab07/` on the next publish batch.
+**Screenshot pending:** Lab 7 wizard (Provide Basic Details step, mostly blank). A maintainer attachment URL was **not** published to this repo: HTTP **404** on fetch, so README intentionally has **no image embed** here. Next update: add `assets/img/lab07/application-service-wizard-start.png` when the file is in the repo.
 
 ---
 
