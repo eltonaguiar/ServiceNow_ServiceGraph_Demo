@@ -1,3 +1,5 @@
+ServiceNow PDI
+
 # ServiceNow_ServiceGraph_Demo
 
 > [!WARNING]
@@ -14,6 +16,20 @@ Below is a condensed version from my actual experience in running this lab.
 ## PDI
 
 Get your PDI at [developer.servicenow.com](https://developer.servicenow.com).
+
+Install these, to avoid delays, it will take some time to install!
+<img width="847" height="291" alt="image" src="https://github.com/user-attachments/assets/6ca540ee-67c3-4f20-8472-5b49648c8c10" />
+To Install, for PDI, you can try to search for "Service Graph" under https://developer.servicenow.com/dev.do#!/manage-instance
+otherwise, in your instance itself 
+
+<img width="203" height="472" alt="image" src="https://github.com/user-attachments/assets/df353bc9-bafa-4fcf-aba2-2b32dc133b51" />
+All Available Applications
+<img width="911" height="132" alt="image" src="https://github.com/user-attachments/assets/236ff4a3-ba91-4d0b-81e2-9216ab6358d9" />
+under search, find and then press Install. Most important one for the main lab is Service Graph Connector For AWS. However, for another lab Service Graph Connector For Azure is nice to have(Lab 8, if you choose to)
+<img width="820" height="294" alt="image" src="https://github.com/user-attachments/assets/da60d7d7-fa81-46b0-8d9a-92c347862030" />
+
+
+
 
 ---
 
