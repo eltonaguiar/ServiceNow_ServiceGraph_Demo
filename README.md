@@ -234,3 +234,9 @@ Get to IAM
 
 follow lab instructions:
 <img width="946" height="421" alt="image" src="https://github.com/user-attachments/assets/bde03798-6909-4b05-ac3b-dbb057d87d6b" />
+
+Next step --> Permission-->Create Policy-->JSON.. 
+<img width="1809" height="816" alt="image" src="https://github.com/user-attachments/assets/34256538-6dd6-416d-abc3-7ada7c8e5f7f" />
+paste the contents of https://github.com/eltonaguiar/ServiceNow_ServiceGraph_Lab/blob/main/aws/iam-readonly-lab-policy.json
+
+
