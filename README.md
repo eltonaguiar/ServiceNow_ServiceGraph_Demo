@@ -216,4 +216,10 @@ AWS-Setup>
 <img width="331" height="739" alt="image" src="https://github.com/user-attachments/assets/66df954c-f397-462a-a4b1-94b90650b18d" />
 
 
+Get Started
+<img width="1839" height="341" alt="image" src="https://github.com/user-attachments/assets/3f2c0622-d877-49d7-abb3-5b3ffba10197" />
+<img width="1907" height="897" alt="image" src="https://github.com/user-attachments/assets/48407920-afa5-4455-b2d9-a820683ab4a7" />
+
+
+
 
