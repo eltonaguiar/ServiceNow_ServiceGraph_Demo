@@ -144,3 +144,40 @@ The budget alarm is your only early warning, which is why it is step 2 and not a
 3. Do **not** upgrade to pay-as-you-go for this lab.
 
 You can complete Labs 0–7 and 9–11 without Azure.
+
+
+# LAB 1 
+Get the Template YAML lab-stack.yaml https://github.com/eltonaguiar/ServiceNow_ServiceGraph_Lab/blob/main/aws/lab-stack.yaml , then upload it under the Create Stack page
+<img width="1772" height="796" alt="image" src="https://github.com/user-attachments/assets/0aeb4c8a-6fd5-4b23-96dd-6ed234ea9390" />
+proceed to next step 
+Step 2:
+<img width="1698" height="751" alt="image" src="https://github.com/user-attachments/assets/68e06fa5-8d68-46aa-b4ee-e33fbfef2d36" />
+
+Stack name: enter sgclab.
+ApplicationTag: leave payments.
+InstanceType: leave t3.micro.
+LabOwner: replace labuser with a label such as elton.
+LatestAmazonLinuxAmi: leave the existing value unchanged.
+Click Next, leave the stack options at their defaults, then Next → Review and create → Submit. Wait for CREATE_COMPLETE.
+
+Afterward, open EC2 → Instances in the same region and stop—not terminate—the lab instance. It remains discoverable while stopped. Running compute can incur charges, and storage may still cost money while stopped.
+
+
+Once done , note the CREATE_COMPLETE in the left section called Stacks
+<img width="376" height="276" alt="image" src="https://github.com/user-attachments/assets/ee267d97-2fb5-4e85-baae-0cfdf214a8c4" />
+
+Before moving to Lab 2, also record the instance ID, VPC ID and region for the later inventory checks.
+
+
+So the region would be found in the URL , and the rest under resources
+<img width="1290" height="368" alt="image" src="https://github.com/user-attachments/assets/0650539e-a3bc-49bf-9016-b4e6fbb74cd0" />
+
+Under Resources, copy the Physical ID beside LabInstance (i-…) and LabVpc (vpc-…). My region is us-east-2 (Ohio) , as per the URL.
+Click the LabInstance Physical ID to open EC2, then select Instance state → Stop instance.
+
+Stop the Instance 
+<img width="724" height="444" alt="image" src="https://github.com/user-attachments/assets/fcbf7e18-5482-4467-a176-988dbecb855f" />
+Stopping it avoids running compute charges while you’re not using it. For this inventory lab, the connector can still discover a stopped instance and its tags; you don’t need the operating system running. Stop, don’t terminate—storage can still incur charges.
+
+
+
