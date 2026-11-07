@@ -309,3 +309,6 @@ One thing to check before Lab 4, so it doesn't fail on you: your Lab 3 policy gr
 
 Cost check: the only meter running is AWS Config recording (~$0.003 per recorded item) plus pennies of S3 storage. When the lab series is finished, delete the sg-aws-config stack and empty its bucket so the recorder doesn't keep billing in the background.
 <img width="1862" height="453" alt="image" src="https://github.com/user-attachments/assets/01854d19-a9f3-4a1b-bbf0-23bb28d22a76" />
+
+so 2 stacks, the first one from earlier and this one
+<img width="359" height="368" alt="image" src="https://github.com/user-attachments/assets/21c914ad-279c-46a7-bd61-7b5423477f79" />
