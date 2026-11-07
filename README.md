@@ -281,3 +281,31 @@ Choose Application running outside AWS, then follow the prompts.
 Keep the secret access key private—don’t include it in screenshots or chat.
 <img width="1481" height="641" alt="image" src="https://github.com/user-attachments/assets/69229e87-388c-41ac-97c9-d847d871ead3" />
 Create Access Key
+
+
+
+
+<img width="1539" height="737" alt="image" src="https://github.com/user-attachments/assets/9e6030e2-0859-4fc8-908f-4324cc536624" />
+
+Create a Stack, following these steps:
+Here's the exact run, in order. You're doing three of the seven instruction groups; the rest get marked off as skipped.
+
+In ServiceNow — Guided Setup
+
+Download the scripts task → Configure → download the CloudFormation zip to your machine → Close → mark the task complete. Unzip it and find EnableAWSConfig.yml — that's the only file you need for now.
+In the AWS Console (your lab account, your one region)
+
+CloudFormation → Create stack → With new resources → Upload a template file → choose EnableAWSConfig.yml.
+Stack name: sg-aws-config. Leave parameters at defaults unless one is clearly required (the template creates its own S3 bucket for Config delivery). If it asks you to acknowledge IAM resource creation, tick it — the stack creates the role AWS Config uses to record and deliver.
+Submit and wait for CREATE_COMPLETE (a few minutes).
+Sanity check: AWS Config → Dashboard/Settings — the recorder should show as On. That recorder is the connector's data source; without it, imports return nothing.
+Back in ServiceNow — Guided Setup
+
+AWS Setup Instructions task → open it, confirm the recorder group is the one you've done, and mark it complete. Aggregator, SSM, SendCommand, key rotation, and email notification are the skippable groups — single account, no deep discovery, lab account.
+Move to the connection/configuration section of guided setup and confirm it points at what you built in Lab 3: your 12-digit account ID, the one region, and the credential record for servicenow-sgc-lab. Leave the aggregator field blank and skip any SSM/deep-discovery role step — both are the optional paths.
+Run the Diagnostic Tool at the end of guided setup. Fix only what it flags.
+Click Test connection / Validate — green here is your guided-setup finish line. Leave the scheduled import jobs alone; running the first import is Lab 4.
+One thing to check before Lab 4, so it doesn't fail on you: your Lab 3 policy grants EC2/S3/SSM/Organizations/IAM/Tag reads, but the connector's core data call is config:ListDiscoveredResources — it reads hardware out of AWS Config, not straight from EC2. Compare your policy against the prerequisites policy that ships in the scripts download (that's the authoritative minimum for your connector version) and add just the missing config: read actions — ListDiscoveredResources and its Describe/Get companions. Don't swap in ReadOnlyAccess wholesale; three or four lines is the whole fix.
+
+Cost check: the only meter running is AWS Config recording (~$0.003 per recorded item) plus pennies of S3 storage. When the lab series is finished, delete the sg-aws-config stack and empty its bucket so the recorder doesn't keep billing in the background.
+<img width="1862" height="453" alt="image" src="https://github.com/user-attachments/assets/01854d19-a9f3-4a1b-bbf0-23bb28d22a76" />
