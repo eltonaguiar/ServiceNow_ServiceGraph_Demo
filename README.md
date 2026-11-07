@@ -223,3 +223,14 @@ Get Started
 
 
 
+
+
+# Lab 3 
+to get there if in Console you can use the top menu Search and type IAM, then follow the link
+<img width="1894" height="152" alt="image" src="https://github.com/user-attachments/assets/cce9a5ed-f292-4f52-aef9-bfd341e55954" />
+
+Get to IAM
+<img width="1917" height="374" alt="image" src="https://github.com/user-attachments/assets/22e04e2a-8ab5-4271-af0e-103e9b681f4f" />
+
+follow lab instructions:
+<img width="946" height="421" alt="image" src="https://github.com/user-attachments/assets/bde03798-6909-4b05-ac3b-dbb057d87d6b" />
