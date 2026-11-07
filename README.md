@@ -1,4 +1,8 @@
+
+
 ServiceNow PDI
+
+
 
 # ServiceNow_ServiceGraph_Demo
 
@@ -39,6 +43,9 @@ under search, find and then press Install. Most important one for the main lab i
 > Credit Card Required. Be careful, and stop the instance on the same day.
 
 ### Free AWS account (Amazon Web Services)
+so starting here:
+https://aws.amazon.com/pricing/
+<img width="668" height="116" alt="image" src="https://github.com/user-attachments/assets/d4eb4663-7c9e-4b27-ae59-60caf8968636" />
 
 
 
@@ -48,7 +55,6 @@ under search, find and then press Install. Most important one for the main lab i
    - Direct link: [https://us-east-1.console.aws.amazon.com/cost-management](https://us-east-1.console.aws.amazon.com/cost-management) (or search for **Budgets** in the top search bar).
    - You will see something like this when you click your profile on the top right
    - <img width="283" height="433" alt="image" src="https://github.com/user-attachments/assets/87695000-bf82-4c95-97db-47a78b5f1337" />
-
   
    - Alternative way: <img width="1305" height="332" alt="image" src="https://github.com/user-attachments/assets/16a65d14-301f-4f1c-8c45-5fe95252e5bc" /> go to Billing & Cost Management
    - Choose **Budgets** → **Create budget** → **Use a template (simplified)**.
@@ -69,7 +75,15 @@ Click the Verify link:
 4. Choose one region and stick to it for the whole lab (for example `ca-central-1`). Multi-region imports multiply the data and the surprises.
 5. Note your **12-digit account ID** (top-right account menu).
 
-5
+
+
+top right menu-->My Account-->AWS Management Console-->Search-->CloudFormation , it will go into your Recently Visited after
+<img width="1090" height="185" alt="image" src="https://github.com/user-attachments/assets/a2ae9323-74b9-429d-be7c-72af737f433e" />
+-->
+
+   https://us-east-2.console.aws.amazon.com/cloudformation/home?region=us-east-2
+(or replace us-east-2 with whatever region you chose in Lab 0).
+
 
 
 
