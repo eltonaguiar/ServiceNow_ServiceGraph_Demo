@@ -13,7 +13,126 @@ Following this Lab I generated with AI, specifically to teach the Service Graph 
 
 **Full lab (authoritative detail):** [ServiceNow Service Graph Lab](https://eltonaguiar.github.io/ServiceNow_ServiceGraph_Lab/) — start at [prerequisites](https://eltonaguiar.github.io/ServiceNow_ServiceGraph_Lab/labs/00-prerequisites/).
 
-Below is a **light PoC walkthrough** from running that lab on a PDI; it is not the full curriculum. Use the lab site for step-by-step depth and troubleshooting.
+Below is a **light PoC walkthrough** from running that lab on a PDI; it is **not** the full curriculum and does **not** mean every page on the [full lab site](https://eltonaguiar.github.io/ServiceNow_ServiceGraph_Lab/) has been rewritten. Use the lab site for authoritative depth; use **this** repo for what we actually clicked on a disposable PDI (including deviations).
+
+As shown in [Lab 7](https://eltonaguiar.github.io/ServiceNow_ServiceGraph_Lab/labs/07-csdm-graph/), these notes aim to make the walkthrough more beginner-friendly by explaining acronyms and technical terms as they appear. This demo follows a shorter path, so some steps from the full lab are skipped; deviations and unfinished steps are noted below.
+
+## Demo scope and actual progress
+
+| Through | Status | Authoritative lab page |
+|--------|--------|-------------------------|
+| Labs 0–4 | Walkthrough + screenshots in this file | [Lab 4 — Run import](https://eltonaguiar.github.io/ServiceNow_ServiceGraph_Lab/labs/04-run-import/) |
+| Lab 5 | **Completed** — IRE look-only steps below | [Lab 5 — IRE](https://eltonaguiar.github.io/ServiceNow_ServiceGraph_Lab/labs/05-ire/) |
+| Lab 6 | **Completed** — hands-on mapping below (**deviates** from published read-only Part A) | [Lab 6 — ETL](https://eltonaguiar.github.io/ServiceNow_ServiceGraph_Lab/labs/06-etl-mappings/) · [demo deviations](docs/LAB-DEVIATIONS.md) |
+| Lab 7 | **Started only** — wizard opened, **not saved** | [Lab 7 — CSDM](https://eltonaguiar.github.io/ServiceNow_ServiceGraph_Lab/labs/07-csdm-graph/) |
+| Labs 8–11 | **Not done** | [Overview](https://eltonaguiar.github.io/ServiceNow_ServiceGraph_Lab/) |
+
+**Screenshot inventory:** [docs/SCREENSHOT-INVENTORY.md](docs/SCREENSHOT-INVENTORY.md) (included vs missing for this publish).
+
+Verified lab region example: **US East (Ohio) `us-east-2`**. One **stopped** rented computer named **`sgclab-app-01`** (`t3.micro`).
+
+---
+
+## Words first (then the jargon)
+
+| Everyday idea | Technical term | In this demo |
+|---------------|----------------|--------------|
+| A **rented cloud computer** you can stop and start like a hotel room | **EC2 instance** | `sgclab-app-01` |
+| Your **private neighborhood network** inside the cloud account | **VPC** | `sgclab-vpc` `10.42.0.0/16` (+ AWS **default** VPC still exists) |
+| A **slice of that neighborhood’s street addresses** | **Subnet** | `sgclab-subnet` — name does not mean “public” or “private” by itself |
+| **Stateful traffic rules** stuck to network interfaces (not a classic subnet firewall box) | **Security group** | `sgclab-sg`, no inbound rules in template |
+| A **city-sized datacenter campus** | **AWS Region** | `us-east-2` |
+| One **building zone** inside that campus | **Availability Zone** | Subnet uses first AZ in stack template |
+| **Disk space** attached to the computer | **EBS volume** | Exists for instance; **not** in lab Config’s four recorded types → import partials common |
+| **Change log / inventory snapshots** AWS keeps of resource shapes | **AWS Config** | Recorder on; types: Instance, VPC, Subnet, SecurityGroup only |
+| **Login identity** for APIs (not something you put in the CMDB as “the server”) | **IAM** user/role | Supports connector; **not** the same as inventory CIs |
+| ServiceNow’s **inventory database** | **CMDB** | Tables below |
+| **One row** in that database | **CI** (configuration item) | e.g. one VM row |
+| **Table** | e.g. `cmdb_ci_vm_instance` | Filter Navigator: `cmdb_ci_vm_instance.list` |
+| Engine that **matches new rows to old** | **IRE** | Read outcomes in Lab 5; warnings in Lab 6 |
+| **Recipe** from AWS JSON → CMDB columns | **ETL** (IntegrationHub ETL) | Lab 6 |
+| Something people **rely on** (lab tag only here) | **Application service** (CSDM) | Lab 7 **not completed** — tag `payments` ≠ installed app |
+
+**Not the same thing:** A **cloud VM row** (`cmdb_ci_vm_instance`) is **not** a **Windows Server** CI (`cmdb_ci_win_server`). OS class needs guest discovery; **stopped** instance → **no OS inventory**.
+
+---
+
+## What exists vs what gets imported
+
+Source of truth template: [`aws/lab-stack.yaml`](https://github.com/eltonaguiar/ServiceNow_ServiceGraph_Lab/blob/main/aws/lab-stack.yaml) (counts below from template; default VPC is **not** created by template).
+
+```mermaid
+flowchart TB
+  subgraph AWS_created["Created by stack sgclab"]
+    EC2[EC2 sgclab-app-01]
+    VPC[VPC sgclab-vpc]
+    SUB[Subnet]
+    SG[Security group]
+  end
+  subgraph AWS_support["AWS support services — not CMDB asset classes"]
+    CFN[CloudFormation]
+    CFG[AWS Config recorder]
+    IAM[IAM credentials]
+  end
+  subgraph CFG_types["Config recorded types deliberate lab narrow"]
+    T1[Instance]
+    T2[VPC]
+    T3[Subnet]
+    T4[SecurityGroup]
+  end
+  subgraph SN_CMDB["Imported CMDB targets"]
+    A[cmdb_ci_cloud_service_account]
+    D[cmdb_ci_aws_datacenter]
+    N[cmdb_ci_network]
+    CS[cmdb_ci_cloud_subnet]
+    CSG[cmdb_ci_compute_security_group]
+    VM[cmdb_ci_vm_instance]
+  end
+  AWS_created --> CFG_types
+  CFG_types --> SN_CMDB
+```
+
+| Layer | What you have | Lab count (template) | Notes |
+|-------|----------------|----------------------|--------|
+| **AWS resources** | VPC, subnet, SG, EC2 | 1 each from stack | Plus account **default VPC** in console (not from template) |
+| **Config recordings** | Four resource types only | 0 rows for **NetworkInterface** / **Volume** in walkthrough | Optional job `SG-AWS-NetworkInterface` skipped |
+| **CMDB CIs** | After imports 100→180 | 1 VM, 2 VPC **network** rows typical | Depends on IRE; partial NIC/volume relations possible |
+
+**Infrastructure in AWS ≠ successfully imported graph.** Job **Processed** only means the pipeline touched a row — open **lists and IRE warnings**.
+
+---
+
+## Breadcrumbs (release-dependent — verify on your PDI)
+
+### AWS console (Ohio example)
+
+| Goal | Where to click |
+|------|----------------|
+| Stacks | Search → **CloudFormation** → **Stacks** (`sgclab`, `sg-aws-config`, …) |
+| Stopped computer | **EC2** → **Instances** → `sgclab-app-01` |
+| Networks | **VPC** → **Your VPCs** / **Subnets** / **Security groups** |
+| Config recorder | Search → **AWS Config** → **Settings** |
+| Region | Top bar **US East (Ohio) us-east-2** |
+
+### ServiceNow
+
+| Goal | Filter Navigator (`.list` URL) | UI label (may vary) |
+|------|-------------------------------|---------------------|
+| Cloud VM | `cmdb_ci_vm_instance.list` | **Virtual Machine Instance** |
+| VPC as network | `cmdb_ci_network.list` | **Cloud Networks** |
+| Subnet | `cmdb_ci_cloud_subnet.list` | **Cloud Subnet** |
+| Security group | `cmdb_ci_compute_security_group.list` | **Compute Security Group** |
+| Region datacenter | `cmdb_ci_aws_datacenter.list` | **AWS Datacenter** |
+| Account | `cmdb_ci_cloud_service_account.list` | **Cloud Service Account** |
+| Schedules | Service Graph Connector for AWS → **Scheduled Imports** | exact menu path varies by release |
+| ETL map | **IntegrationHub ETL** → **Configuration** | definition `SG-AWS-EC2-Instance` |
+| Application service (Lab 7) | `cmdb_ci_service_auto.list` | **Service Instances** |
+
+---
+
+## AWS Free plan note (this walkthrough account)
+
+Newer accounts may show a **Free plan** with **credits** and a **~six-month** window (see your Billing home — not the same as legacy 12-month free tier for everyone). **Conserving credits** still matters: **Config**, **S3 delivery**, **EBS**, and **public IPv4** can charge while a instance is **stopped**. Upgrading to **paid** is a separate decision with its own billing rules — do not generalize from one account screenshot to all accounts.
 
 ---
 
@@ -72,7 +191,7 @@ Find email like this:
 Click the Verify link:
    - <img width="560" height="294" alt="image" src="https://github.com/user-attachments/assets/feaa707f-4160-48fe-b84f-07488b054475" />
 
-4. Choose one region and stick to it for the whole lab (for example `ca-central-1`). Multi-region imports multiply the data and the surprises.
+4. Choose one region and stick to it for the whole lab (for example `us-east-2` (Ohio — verified in this walkthrough) or your own single region). Multi-region imports multiply the data and the surprises.
 5. Note your **12-digit account ID** (top-right account menu).
 
 
@@ -196,7 +315,7 @@ If not installed, then Install
 Service Graph Connector for AWS.
 
 Navigate  to sys_store_app_list.do (you can type under filter navigator to get there)
-https://dev296154.service-now.com/now/nav/ui/classic/params/target/sys_store_app_list.do%3Fsysparm_first_row%3D1%26sysparm_query%3DGOTOnameLIKEaws%26sysparm_query_encoded%3DGOTOnameLIKEaws%26sysparm_view%3D
+Filter Navigator → `sys_store_app_list.do` (search applications for AWS connector)
 
 
 <img width="1700" height="166" alt="image" src="https://github.com/user-attachments/assets/21475cfe-c336-4357-b01a-53c5466a7b5e" />
@@ -325,38 +444,181 @@ You should reach Specify stack details, where the parameters appear.
 
 # Lab 4 — Standalone AWS imports (verified minimum)
 
-Procedure and later labs: [ServiceNow Service Graph Lab](https://eltonaguiar.github.io/ServiceNow_ServiceGraph_Lab/). Run **one** scheduled job at a time; wait until status is **Processed** (Loaded or Pending is not done).
+Procedure: [Lab 4 — Run the import](https://eltonaguiar.github.io/ServiceNow_ServiceGraph_Lab/labs/04-run-import/). Run **one** scheduled job at a time; wait until status is **Processed** (Loaded or Pending is not done).
 
-| Order | Job |
+| Order | Job (name may include numeric suffix on your instance) |
 |------:|-----|
-| 1 | `SG-AWS-Service-Account100` |
-| 2 | `SG-AWS-Datacenters110` |
-| 3 | `SG-AWS-VPC120` |
-| 4 | `SG-AWS-Subnets130` |
-| 5 | `SG-AWS-Security-Group150` |
-| 6 | `SG-AWS-EC2180` |
+| 1 | `SG-AWS-Service-Account100` / `SG-AWS-Service-Account` |
+| 2 | `SG-AWS-Datacenters110` / `SG-AWS-Datacenters` |
+| 3 | `SG-AWS-VPC120` / `SG-AWS-VPC` |
+| 4 | `SG-AWS-Subnets130` / `SG-AWS-Subnets` |
+| 5 | `SG-AWS-Security-Group150` / `SG-AWS-Security-Group` |
+| 6 | `SG-AWS-EC2180` / `SG-AWS-EC2` |
 
-- Keep parent **`SG-AWS-Organization`** inactive — activating it cascades many jobs (e.g. SSM, EKS); not needed for this tiny flow.
-- **`SG-AWS-NetworkInterface`** (and similar) is optional; with only the lab’s four AWS Config recorded types and **0 rows** for NIC in this account, you can skip it here.
-- Import **datacenters before VPC**. If datacenter lookup is missing, IRE can still show **Processed** with no errors but leave a **partial** payload for downstream CIs.
+- Keep parent **`SG-AWS-Organization`** inactive — cascades dozens of jobs (SSM, EKS, …).
+- **`SG-AWS-NetworkInterface`** optional — lab Config records **Instance, VPC, Subnet, SecurityGroup** only → **0** NIC rows; skip in tiny flow.
+- Import **datacenters before VPC** — otherwise IRE may show **Processed** with **zero** inserts on `cmdb_ci_network` (see published vpc-transform vs vpc-rerun images in appendix below).
 
-**Where to look in CMDB** (current connector tables — not legacy `cmdb_ci_vpc` / `cmdb_ci_ec2_instance`):
+**CMDB targets** (Discovery source on VM: **`SG-AWS`**):
 
-| AWS object | Table |
-|------------|--------|
-| Account | `cmdb_ci_cloud_service_account` |
-| Datacenter | `cmdb_ci_aws_datacenter` |
-| VPC | `cmdb_ci_network` |
-| Subnet | `cmdb_ci_cloud_subnet` |
-| Security group | `cmdb_ci_compute_security_group` |
-| EC2 | `cmdb_ci_vm_instance` |
+| AWS object | Table | List navigator |
+|------------|--------|----------------|
+| Account | `cmdb_ci_cloud_service_account` | `cmdb_ci_cloud_service_account.list` |
+| Datacenter | `cmdb_ci_aws_datacenter` | `cmdb_ci_aws_datacenter.list` |
+| VPC | `cmdb_ci_network` (not `cmdb_ci_vpc`) | `cmdb_ci_network.list` |
+| Subnet | `cmdb_ci_cloud_subnet` | `cmdb_ci_cloud_subnet.list` |
+| Security group | `cmdb_ci_compute_security_group` | `cmdb_ci_compute_security_group.list` |
+| EC2 | `cmdb_ci_vm_instance` (not `cmdb_ci_ec2_instance` / `cmdb_ci_win_server`) | `cmdb_ci_vm_instance.list` |
 
-**PoC success (inventory milestone, not full graph hygiene):** After the stack from Lab 1, expect **one** lab VM (your instance ID from CloudFormation **Resources**), with **Environment / Application / Owner** tags on the CI. Re-running the same import set should still leave **one** VM (no duplicate flood). A **stopped** instance is fine — **Off** state is imported; you do not need to start the OS for basic inventory. Discovery Source was not validated in this pass; storage, NIC, and relationship rows may be partial — treat this as proof the connector path works, not a fully reconciled Service Graph.
+**PoC success:** One stopped **`sgclab-app-01`** with Environment / Application / Owner tags; re-import still **one** VM. **Partial** NIC/volume/relations expected — not a full service graph.
 
-See also: [AWS Service Graph Connector (ServiceNow Community)](https://www.servicenow.com/community/cmdb-articles/aws-service-graph-connector/ta-p/2958151).
+See also: [ServiceNow Community article](https://www.servicenow.com/community/cmdb-articles/aws-service-graph-connector/ta-p/2958151).
 
-VPCs appear under **CMDB → Network** (`cmdb_ci_network_list.do`). Example after import:
+Demo repo screenshots (earlier labs) — VPC list examples (from this repo’s prior walkthrough):
 
-<img width="1696" height="266" alt="image" src="https://github.com/user-attachments/assets/9af3c811-ee6a-4a1b-910e-24a14895f83f" />
+<img width="1696" height="266" alt="AWS VPC console context" src="https://github.com/user-attachments/assets/9af3c811-ee6a-4a1b-910e-24a14895f83f" />
 
-<img width="1616" height="218" alt="image" src="https://github.com/user-attachments/assets/9c5e51da-199b-4151-8e62-5c41ca195579" />
+<img width="1616" height="218" alt="ServiceNow Cloud Networks list" src="https://github.com/user-attachments/assets/9c5e51da-199b-4151-8e62-5c41ca195579" />
+
+---
+
+## Lab 5 — Read IRE (steps we actually ran)
+
+Curriculum: [Lab 5 — Read the IRE results](https://eltonaguiar.github.io/ServiceNow_ServiceGraph_Lab/labs/05-ire/). **We did not edit identification rules.**
+
+### Step 5.1 — Confirm one cloud VM row
+
+1. Filter Navigator → `cmdb_ci_vm_instance.list` (**Virtual Machine Instance**).
+2. Confirm **one** row: **Name** `sgclab-app-01`, **State** **Off** (stopped in AWS), discovery source **`SG-AWS`**.
+3. Re-run schedule **`SG-AWS-EC2`** once; list should still show **one** row (same identity — separate continuity check from the screenshot moment).
+
+![One VM row with discovery source SG-AWS (privacy-reviewed, from full lab)](assets/img/lab05/vm-discovery-source.png)
+
+### Step 5.2 — Read the identification rule (no changes)
+
+1. **CI Class Manager** → **Virtual Machine Instance** → **Identification Rule**  
+   *(Alternative path on some releases: **Identification and Reconciliation** → rules for that class.)*
+2. Confirm **Dependent** rule using **Object ID** — do **not** edit to “fix” partials.
+
+![VM Instance dependent identification rule on Object ID](assets/img/lab05/vm-identification-rule.png)
+
+### Step 5.3 — Read relationship vocabulary (not proof every link exists)
+
+1. On the same class, open **Dependent Relationships**.
+2. Note configured hosting/containment options (logical datacenter, computer, virtualization server, …).
+3. **Unresolved / deferred:** NIC, EBS volume, and some `cmdb_rel_ci` rows remained partial or abandoned after imports — we did **not** debug connector rules in this demo.
+
+![Configured dependent relationship types on Virtual Machine Instance class](assets/img/lab05/vm-dependent-relationships.png)
+
+---
+
+## Lab 6 — ETL mapping (steps we actually ran; deviates from published Lab 6 Part A)
+
+Curriculum: [Lab 6 — Change an ETL mapping](https://eltonaguiar.github.io/ServiceNow_ServiceGraph_Lab/labs/06-etl-mappings/) starts with **read-only** mapping review. **This disposable PDI path edited the live map** — see [docs/LAB-DEVIATIONS.md](docs/LAB-DEVIATIONS.md). **Not a production pattern.**
+
+### Step 6.1 — Open the EC2 instance ETL definition
+
+1. **All** → **IntegrationHub ETL** → **Configuration** → **IntegrationHub ETL**.
+2. Open **CMDB Application: SG-AWS** → definition **`SG-AWS-EC2-Instance`** (ETL definition — not the `SG-AWS-EC2` **schedule**).
+3. Go to **Map Data to CMDB** → step **Select CMDB Classes** → **Virtual Machine Instance** card.
+
+### Step 6.2 — Read stock **Name** mapping (published lab screenshot)
+
+1. Choose **View Mapping** (read-only) first.
+2. Confirm **Target Name** ← **`object.ec2Name`** (transform output, not a raw AWS field on the CI form).
+
+![Configured mapping: Target Name from object.ec2Name](assets/img/lab06/etl-vm-name-mapping.png)
+
+### Step 6.3 — Enable editing with a populated sample import set
+
+1. Switch to **Edit Mapping**. **Add Attribute** stays grey until a sample import set is selected — expected.
+2. **Select a Sample Import Set:** **`ISET0010032`** showed **0 rows** (not usable).
+3. Selected **`ISET0010031`** (**1 row**, **Auto-pull OFF**) → **Edit Mapping** enabled.
+
+> **Screenshot missing (not in repo yet):** sample import set picker showing `ISET0010031` vs empty `ISET0010032`. Parent attachment transfer failed; will add when supplied.
+
+### Step 6.4 — Abandon duplicate-map shortcut
+
+1. Attempted **duplicate** map from the original source → error: *“This map cannot be used as a copy source for the selected data source.”*
+2. Did **not** create a new replay data source; edited the **original** map on this PDI instead (**lab-only**).
+
+> **Screenshot missing:** duplicate-map error dialog.
+
+### Step 6.5 — Add **Comments** ← `object.awsRegion`
+
+1. With **`ISET0010031`** selected, **Add Attribute**.
+2. Target: existing string field **Comments** on **Virtual Machine Instance** (this map also touches other classes — one ETL definition, multiple targets).
+3. Source: **`object.awsRegion`**.
+4. **Before run:** **Comments** on `sgclab-app-01` was blank.
+
+> **Screenshot missing:** Edit Mapping row showing Comments ← `object.awsRegion`.
+
+### Step 6.6 — Mark complete and Run Integration (real IRE)
+
+1. **Mark as Complete** on the mapping wizard.
+2. Step **Test and Rollback** → **Integration Results** → **Run Integration** (writes through IRE — not a dry simulation).
+
+**Numbers we observed:**
+
+| Classes | New | Updated | Partial | Incomplete |
+|--------|-----|---------|---------|------------|
+| 15 | 0 | 2 (VM + OS template) | 1 | 0 |
+
+3. Open `cmdb_ci_vm_instance.list` again: **Comments** on `sgclab-app-01` = **`us-east-2`**; still **one** VM row.
+
+> **Screenshot missing (required when available):** VM list showing **Comments** = `us-east-2` after Run Integration.
+
+### Step 6.7 — Warning log (unresolved dependencies)
+
+1. **Error Log:** empty.
+2. **Warning Log:** **2** × `MISSING_DEPENDENCY` (`cmdb_ci_nic`, `cmdb_ci_storage_volume`); **3** × `ABANDONED` `cmdb_rel_ci` (shared partial payload).
+3. **Not fixed in this demo** — relationship rule debugging deferred; do **not** treat as proof of a clean graph.
+
+> **Screenshot missing:** Warning Log lines for NIC / storage / abandoned relationships.
+
+### Step 6.8 — Pending cleanup
+
+- Temporary **Comments** mapping may still be on the PDI; written **Comments** value **not confirmed reverted**.
+- Removing the mapping alone does **not** erase CMDB data already written.
+
+---
+
+## Lab 7 — Application service (**START only — not complete**)
+
+Curriculum: [Lab 7 — CSDM and the service graph](https://eltonaguiar.github.io/ServiceNow_ServiceGraph_Lab/labs/07-csdm-graph/). **Labs 8–11 not started.**
+
+**ELI5:** The CloudFormation **Application** tag `payments` is a **label for something you would care about if it broke** — not proof a real payments product was discovered on the server. CSDM asks you to group inventory under a **service instance** so “what breaks if this computer fails?” has a shape. **We did not save that grouping.**
+
+### Step 7.1 — Open Service Instances list
+
+1. Filter Navigator → `cmdb_ci_service_auto.list` (**Service Instances**).
+2. Left existing **ServiceNow Event Management** service untouched.
+
+### Step 7.2 — Start Create Application Service wizard
+
+1. Click **New** → **Create an Application Service**.
+2. Wizard steps visible: **Provide Basic Details** → **Populate** → **Preview**.
+3. **Stopped here:** form mostly blank; discussed using name **Payments** (lab tag only), description noting learning exercise, **Non-Operational**, inspect **Environment** — **no fields saved, no VM linked, no dependency view.**
+
+**Correction:** Application service **is** the service instance (`cmdb_ci_service_auto`) — do not add a separate generic `cmdb_ci_service_instance` layer for this wizard.
+
+Author-provided wizard capture (URL supplied by maintainer; agent could not download for local copy — embed for GitHub render):
+
+<img width="935" height="719" alt="Lab 7 start: Create an Application Service wizard on Provide Basic Details step, mostly blank, not saved" src="https://github.com/user-attachments/assets/3cb4286f-d817-4799-a007-c2c82069c432" />
+
+> If the image above does not render in your viewer, re-attach `3cb4286f-d817-4799-a007-c2c82069c432` to the demo repo under `assets/img/lab07/` on the next publish batch.
+
+---
+
+## Lab 4 reference images (in repo — privacy-reviewed copies)
+
+From [Lab 4](https://eltonaguiar.github.io/ServiceNow_ServiceGraph_Lab/labs/04-run-import/); chronological use is in the full lab page. Copies shipped in this repo:
+
+| File | Use |
+|------|-----|
+| `assets/img/lab04/pending.png` | Wait on **Pending**, don’t re-execute |
+| `assets/img/lab04/datacenter.png` | After order 110 |
+| `assets/img/lab04/aws-vpcs.png` | Two VPCs in AWS console |
+| `assets/img/lab04/vpc-transform.png` | VPC before datacenter |
+| `assets/img/lab04/vpc-rerun.png` | VPC after datacenter |
+| `assets/img/lab04/vpc-success.png` | `cmdb_ci_network` checkpoint |
