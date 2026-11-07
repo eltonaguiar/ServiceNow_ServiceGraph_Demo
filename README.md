@@ -273,3 +273,11 @@ Keep the secret access key private—don’t include it in screenshots or chat.
 
 User Created Successfully
 <img width="1912" height="406" alt="image" src="https://github.com/user-attachments/assets/8b85466c-14ba-46f0-bac5-5ed9ccb5af4a" />
+
+
+
+next Open the new user → Security credentials → Create access key.
+Choose Application running outside AWS, then follow the prompts.
+Keep the secret access key private—don’t include it in screenshots or chat.
+<img width="1481" height="641" alt="image" src="https://github.com/user-attachments/assets/69229e87-388c-41ac-97c9-d847d871ead3" />
+Create Access Key
