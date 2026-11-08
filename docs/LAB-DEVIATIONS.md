@@ -17,7 +17,7 @@ This file records what actually happened on the walkthrough PDI (Ohio `us-east-2
 | 4 | [Run import](https://eltonaguiar.github.io/ServiceNow_ServiceGraph_Lab/labs/04-run-import/) | Standalone orders **100→180** (see demo README); partial graph acknowledged | — |
 | 5 | [IRE](https://eltonaguiar.github.io/ServiceNow_ServiceGraph_Lab/labs/05-ire/) | **Observational minimum** (list + rule read-only); relationship debug **deferred** | — |
 | 6 | [ETL mappings](https://eltonaguiar.github.io/ServiceNow_ServiceGraph_Lab/labs/06-etl-mappings/) | **Hands-on mapping exercise** (see §6 below); **not** Part A read-only only | — |
-| 7 | [CSDM / service graph](https://eltonaguiar.github.io/ServiceNow_ServiceGraph_Lab/labs/07-csdm-graph/) | **In progress** — manual map checkpoint done; **Business Application** / offering layer pending; Preview relationships empty; no DependsOn verified | **Not started** |
+| 7 | [CSDM / service graph](https://eltonaguiar.github.io/ServiceNow_ServiceGraph_Lab/labs/07-csdm-graph/) | **In progress** — BA/BS/offering + **Depends on :: Used by** to VM verified in hierarchy UI; capability form opened **not submitted**; app **View Map** still manual only | **Not started** |
 | 8–11 | [08](https://eltonaguiar.github.io/ServiceNow_ServiceGraph_Lab/labs/08-multisource-azure/) … [11](https://eltonaguiar.github.io/ServiceNow_ServiceGraph_Lab/labs/11-cleanup/) | **Not attempted** | **Not started** |
 
 ---
@@ -92,19 +92,17 @@ This file records what actually happened on the walkthrough PDI (Ohio `us-east-2
 
 ---
 
-## Lab 7 — start only (deviations)
+## Lab 7 — execution notes (demo PDI, Nov 2026)
 
-**Published corrections to represent later:**
+1. **Application service** wizard completed (**Manual** → **Payments(lab)** → **View Map**).
+2. **Business Application** `Payments` — **All → CSDM → Design → Business Application**; **Implementing**; **IT Application owner** = **System Administrator** (mandatory owner workaround).
+3. **Set relationships** on **Payments(lab):** **Consumes :: Consumed by** to BA **Payments** — **not** *Uses*.
+4. **Business Service** `Payment Processing` — **Service Portfolio Management → Business Services**; **Pipeline** / **Requirements**; **Internal**; **not critical**.
+5. **Offering** `Payment Processing — Development` on related list **Offerings**.
+6. **Set relationships:** offering **Depends on :: Used by** **Payments(lab)**; hierarchy UI also shows **Depends on :: Used by** **Payments(lab)** → **sgclab-app-01**.
+7. **Business Capabilities:** **New → CI Relationship** (**Provided by :: Provides**, child **Payment Processing**) **not submitted**.
 
-1. **Application service** in CSDM is already a **service instance** (`cmdb_ci_service_auto` / Application Service). Do **not** invent an extra generic `cmdb_ci_service_instance` layer for this wizard.
-2. **Navigator:** `cmdb_ci_service_auto.list` — UI title **Service Instances**. Pre-existing **ServiceNow Event Management** service left untouched.
-3. **Wizard:** **New** → **Create an Application Service** — steps **Provide Basic Details** / **Populate** / **Preview**.
-4. **User state:** Last screenshot showed **blank wizard**. Advisable values discussed: name **Payments** (lab tag only — **no real Payments app** installed), description noting learning link, **Non-Operational**, inspect **Environment** choices.
-5. **No evidence:** Fields entered, service saved, VM attached, or dependency/graph screenshot.
-6. **Population:** Manual path references `cmdb_ci_service_discovered` — **picker not verified** on this PDI.
-7. **ELI5 framing:** A **business capability you depend on** (here the lab label “payments”) **depends on** the rented cloud computer records — **asserted dependency for learning**, not discovered from a running application.
-
-**Do not imply:** Lab 7 complete, Payments service graph proven, or Labs 8–12 done.
+**Do not imply:** Lab 7 curriculum complete, capability modeled, or Labs 9+ done.
 
 ---
 

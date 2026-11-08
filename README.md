@@ -24,7 +24,7 @@ As shown in [Lab 7](https://eltonaguiar.github.io/ServiceNow_ServiceGraph_Lab/la
 | Labs 0–4 | Walkthrough + screenshots in this file | [Lab 4 — Run import](https://eltonaguiar.github.io/ServiceNow_ServiceGraph_Lab/labs/04-run-import/) |
 | Lab 5 | **Completed** — IRE look-only steps below | [Lab 5 — IRE](https://eltonaguiar.github.io/ServiceNow_ServiceGraph_Lab/labs/05-ire/) |
 | Lab 6 | **Completed** — hands-on mapping below (**deviates** from published read-only Part A) | [Lab 6 — ETL](https://eltonaguiar.github.io/ServiceNow_ServiceGraph_Lab/labs/06-etl-mappings/) · [demo deviations](docs/LAB-DEVIATIONS.md) |
-| Lab 7 | **In progress** — manual **View Map** checkpoint done; **Business Application** / offering layer **not done** | [Lab 7 — CSDM](https://eltonaguiar.github.io/ServiceNow_ServiceGraph_Lab/labs/07-csdm-graph/) |
+| Lab 7 | **In progress** — app service map + **Business Application / Service / Offering** links done; **capability** optional **pending** | [Lab 7 — CSDM](https://eltonaguiar.github.io/ServiceNow_ServiceGraph_Lab/labs/07-csdm-graph/) |
 | Lab 8 | **Optional — skipped** (Azure) | [Lab 8](https://eltonaguiar.github.io/ServiceNow_ServiceGraph_Lab/labs/08-multisource-azure/) |
 | Labs 9–11 | **Not started** (Lab 9 not the immediate next step) | [Lab 9](https://eltonaguiar.github.io/ServiceNow_ServiceGraph_Lab/labs/09-drift-monitoring/) |
 
@@ -626,11 +626,11 @@ The published lab starts with **read-only** mapping review. **This disposable PD
 
 **Full lab instructions:** [Lab 7 — CSDM and the service graph](https://eltonaguiar.github.io/ServiceNow_ServiceGraph_Lab/labs/07-csdm-graph/)
 
-**Status:** **Lab 7 is not complete.** Steps **7.1–7.7** below record a **manual map checkpoint** (**Payments(lab)** + **View Map** + **sgclab-app-01**). The broader Lab 7 **CSDM** exercise — **Business Application** linked to that service, then a suitable **business service / offering** record — is **still pending**. **Lab 8** remains skipped. **Lab 9** is **not started** and is **not** the immediate next step on this demo path.
+**Status:** **Lab 7 is not complete.** Steps **7.1–7.7**: manual **application service** map. Steps **7.8–7.13**: **Business Application**, **Business Service**, **Business Service Offering**, and wizard **Set relationships** (verified on this PDI). **Capability** modeling (step **7.14**) was opened then **left unsubmitted** — optional, still open. Expanded ELI5, incident fields, and custom OOB relationships: [full Lab 7](https://eltonaguiar.github.io/ServiceNow_ServiceGraph_Lab/labs/07-csdm-graph/) (not duplicated here). **Lab 8** skipped. **Lab 9** **not started** (not immediate next).
 
-**ELI5:** **Payments(lab)** is a **learning label** for something you would care about if it broke — wired manually to the stopped AWS computer **sgclab-app-01**. **No payment software** was discovered; the map is one entry arrow and one gear node, not a real production dependency graph.
+**ELI5 (layered example):** **Business Application** `Payments` = the *business software family* you care about (learning record — not installed in AWS). **Business Service** `Payment Processing` = the *capability the company sells or runs* (still learning — **Pipeline** / **Requirements**, **not critical**). **Business Service Offering** `Payment Processing — Development` = *one packaged flavor* of that capability. **Application service** `Payments(lab)` = the *technical grouping* tied to your **stopped** VM **sgclab-app-01**. **No real payment processing** runs on the instance.
 
-**Outcome (honest limits):** No confirmed **`Depends on`** / `cmdb_rel_ci` rows verified in this pass. **Preview → Relationships** showed **NO RECORDS** while **PopulationMethodsSummary** still listed **Manual** / **sgclab-app-01**. **Traffic based discovery: Enabled** on the service is a UI flag — **not** evidence discovery ran or added nodes. **Set relationships** (business app, tech, business offering, parent) were left empty; **Event Management** was **not** selected.
+**Outcome (updated):** Application-service **View Map** stays a **single manual entry + VM**. The **broader hierarchy** is visible via **Business Service → General → Related Items → hierarchy (dependency views)** — **service → offering → application service → VM**, with **Depends on :: Used by** on offering→app and app→VM (**verified in UI** on this PDI; not the same as connector **IRE** partials). **Consumes :: Consumed by** links **Business Application** `Payments` → **Payments(lab)** — use that pair, **not** *Uses*. **Operational status** on associated CIs is **not** proof the VM is running (**Off** in AWS). **Traffic based discovery: Enabled** is still **not** proof discovery ran.
 
 **Population methods (abbreviated):** On **Choose a Method**, the UI lists five options — **Top-Down Discovery**, **Dynamic CI Groups**, **Tags**, **Manual**, **Dynamic Service**. This demo uses **Manual** only. Role prerequisites, domain notes, and the full comparison table: [full lab — Step 3 Populate](https://eltonaguiar.github.io/ServiceNow_ServiceGraph_Lab/labs/07-csdm-graph/#hands-on-step-3).
 
@@ -690,19 +690,100 @@ Click **Save** — green confirmation (**method added successfully** / populatio
 
 > **Screenshot missing:** Done success banner.
 
-### Step 7.7 — View Map (**checkpoint achieved — Lab 7 still open**)
+### Step 7.7 — View Map (application service only)
 
-1. **View Map** — entry arrow → **sgclab-app-01**; properties: **Entry Points** `sgclab-app-01`, **Non-Operational**, learning description (no payment software installed). **Not** discovered topology; **no** verified **`Depends on`** `cmdb_rel_ci`.
+1. **View Map** on **Payments(lab)** — entry arrow → **sgclab-app-01** only (manual population).
 
 ![View Map — Payments(lab) entry point to sgclab-app-01 (privacy-reviewed — full lab crop)](assets/img/lab07/payments-lab-view-map.png)
 
-**Correction:** Application service **is** the service instance (`cmdb_ci_service_auto`) — do not add a separate generic `cmdb_ci_service_instance` layer for this wizard.
+> **Not published here:** full **dependency views** hierarchy screenshot — bytes not in repo; use step **7.13** path on your PDI.
 
-### Pending — rest of Lab 7 (not documented in this demo yet)
+**Correction:** Application service **is** the service instance (`cmdb_ci_service_auto`) — not a separate generic `cmdb_ci_service_instance` child.
 
-Continue on the [full Lab 7 page](https://eltonaguiar.github.io/ServiceNow_ServiceGraph_Lab/labs/07-csdm-graph/) — do **not** treat the manual map as finishing the lab.
+### Step 7.8 — Business Application `Payments`
 
-**Current work in progress (demo PDI):** In **All**, search **Business Applications** and capture the create/menu path **before** creating a record. Exact **Business Application → Payments(lab)** relationships and offering rows will be documented on the full lab site once verified — **no speculative relationship types or tables here**.
+| Breadcrumb | Action |
+|------------|--------|
+| **All** → **CSDM** → **Design** → **Business Application** | Create **`Payments`** |
+| Form | **Status** **Implementing**; mandatory **Owners** (hidden until expanded) — set **IT Application owner** to **System Administrator** (observed workaround on this PDI) |
+
+> **Screenshot missing:** Business Application form.
+
+### Step 7.9 — Link application service to Business Application
+
+On **Payments(lab)** → wizard **Set relationships** (after app service exists):
+
+| Step | Action |
+|------|--------|
+| Step 1 | **Business Application** → select existing **`Payments`** → **Update** |
+| Step 3 (confirm) | **`Payments`** (parent) **Consumes :: Consumed by** **`Payments(lab)`** (child) |
+
+**Do not** replace with relationship type **Uses**.
+
+> **Screenshot missing:** Set relationships confirmation.
+
+### Step 7.10 — Business Service `Payment Processing`
+
+| Breadcrumb | Values |
+|------------|--------|
+| **All** → **Service Portfolio Management** → **Business Services** | New |
+| Header | **Name** `Payment Processing`; **Phase** **Pipeline**; **Status** **Requirements** |
+| General | **Service classification** **Business Service**; **Consumer type** **Internal**; criticality **4 - not critical** |
+| Description | Learning example — **no real payment processing** |
+
+> **Screenshot missing:** `assets/img/lab07/business-service-payment-processing.png` — Business Service form with **Offerings (1)** and empty **Business Capabilities** (attachment bytes not on agent disk this batch; add on next publish).
+
+### Step 7.11 — Business Service Offering
+
+On **Payment Processing** → related list **Offerings** → **New**:
+
+- **Name** `Payment Processing — Development`
+- **Parent** `Payment Processing`
+- Same classification / consumer / criticality pattern as parent.
+
+> **Screenshot missing:** Offering form.
+
+### Step 7.12 — Link application service to offering
+
+**Payments(lab)** → **Set relationships** → **Business Service Offering** → select **`Payment Processing — Development`** → **Update**.
+
+Step 3 confirms:
+
+| Row | Type |
+|-----|------|
+| Offering → app | **`Payment Processing — Development`** (parent) **Depends on :: Used by** **`Payments(lab)`** (child) |
+| (also) | **Business Application** **Consumes** row as in **7.9** |
+
+> **Screenshot missing:** Step 3 summary after offering link.
+
+### Step 7.13 — Hierarchy dependency views (verified relationships)
+
+On **Business Service** `Payment Processing` → **General** tab → **Related Items** → **hierarchy / dependency views** icon:
+
+- **Service → offering:** hover shows **reference** / parent field semantics.
+- **Offering → `Payments(lab)`:** **Depends on :: Used by**.
+- **`Payments(lab)` → `sgclab-app-01`:** **Depends on :: Used by** (verified visually here — updates earlier “not verified” limit for **this UI path only**).
+- **Load more** may show existing **AWS datacenter**, storage mapping, hardware type, AZ/image, and **Business Application** `Payments` — **no new AWS resources**, **no discovery run**.
+
+> **Screenshot missing:** dependency views graph (do **not** claim published until bytes are in `assets/img/lab07/`).
+
+### Step 7.14 — Business capability (optional — not submitted)
+
+**Business Capabilities** tab on **Payment Processing** was **empty**. **New** opened **CI Relationship** (unsaved):
+
+| Field | Value |
+|-------|--------|
+| **Parent** | (blank — intentional stop) |
+| **Type** | **Provided by :: Provides** |
+| **Child** | `Payment Processing` |
+
+**Went back without Submit** — no capability CI created, no technical service record. Full lab may document modeling later.
+
+> **Screenshot missing:** `assets/img/lab07/business-capability-relationship-unsaved.png` — unsaved **CI Relationship** (**Provided by :: Provides**, child **Payment Processing**); user exited without Submit (attachment bytes not on agent disk this batch).
+
+### Lab 7 — still open
+
+**Done on this PDI:** manual map + business application / service / offering links + hierarchy **Depends on :: Used by** to VM. **Not done:** optional capability chain, full Lab 7 curriculum, Lab 9+.
 
 ---
 

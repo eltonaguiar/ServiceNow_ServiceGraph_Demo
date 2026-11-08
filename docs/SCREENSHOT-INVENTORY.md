@@ -26,6 +26,10 @@ Tracks what is **in this repository** vs **missing**. Lab 7 map/dropdown PNGs ma
 | Lab 6 step 6.3–6.7 | Sample picker, duplicate error, Comments mapping, VM Comments, Warning Log |
 | Lab 7 step 7.2 | **Provide Basic Details** form |
 | Lab 7 steps 7.4–7.6 | Manual Save toast/card, **Preview** panes, **Done** banner |
+| Lab 7 steps 7.8–7.9, 7.11–7.12 | Business Application, Set relationships confirmations |
+| Lab 7 step 7.13 | Hierarchy **dependency views** graph |
+| Lab 7 step 7.10 | `business-service-payment-processing.png` (awaiting bytes) |
+| Lab 7 step 7.14 | `business-capability-relationship-unsaved.png` (awaiting bytes) |
 
 **Not added:** `https://raw.githubusercontent.com/eltonaguiar/poc/main/payments-lab-screenshot.png` inspected (HTTP 200) — redundant with View Map asset; no Preview-specific bytes published.
 
