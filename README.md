@@ -636,6 +636,14 @@ The published lab starts with **read-only** mapping review. **This disposable PD
 
 **Wizard vs classic record:** **Environment** on **Create an Application Service** is **not** the same field as classic **Service Instance → New Record → Used for** (*Production* / *Development*). Match the labels on your current screen.
 
+### Manual lab vs enterprise Service Mapping (why we did not use Top-Down Discovery)
+
+**This demo:** **Manual** population picked **one stopped VM** as the application-service entry point. That does **not** trace a **running application process** on the host, does **not** run **Service Mapping** discovery, and does **not** guarantee **incident impact** or **routing** behavior you would rely on in production.
+
+**Larger organizations (conceptual — not configured here):** Business-owned **catalog** records (applications, services, offerings) are usually **governed** and owned by product/ops teams. **Supported technical inventory** (cloud, datacenter, endpoints) is **imported or discovered**. Where licensed and staffed, **Service Mapping** (or similar) **maps running apps and dependencies** on supported CIs—with access, entitlements, and prerequisites—not a single hand-placed VM. Maps are **reconciled and refreshed** with ownership and data-quality checks over time.
+
+**Auto, manual, and hybrid** patterns, reconciliation, and governance detail: [full Lab 7 — enterprise operating model](https://eltonaguiar.github.io/ServiceNow_ServiceGraph_Lab/labs/07-csdm-graph/) (expanded guide on the lab site; no metrics or enterprise claims in this demo README). We did **not** configure a **technical service** record or prove **true** guest/OS discovery on this PDI.
+
 ### Step 7.1 — Open Service Instances list
 
 1. Filter Navigator → `cmdb_ci_service_auto.list` (**Service Instances**).
