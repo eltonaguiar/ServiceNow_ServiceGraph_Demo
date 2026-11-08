@@ -17,7 +17,7 @@ This file records what actually happened on the walkthrough PDI (Ohio `us-east-2
 | 4 | [Run import](https://eltonaguiar.github.io/ServiceNow_ServiceGraph_Lab/labs/04-run-import/) | Standalone orders **100→180** (see demo README); partial graph acknowledged | — |
 | 5 | [IRE](https://eltonaguiar.github.io/ServiceNow_ServiceGraph_Lab/labs/05-ire/) | **Observational minimum** (list + rule read-only); relationship debug **deferred** | — |
 | 6 | [ETL mappings](https://eltonaguiar.github.io/ServiceNow_ServiceGraph_Lab/labs/06-etl-mappings/) | **Hands-on mapping exercise** (see §6 below); **not** Part A read-only only | — |
-| 7 | [CSDM / service graph](https://eltonaguiar.github.io/ServiceNow_ServiceGraph_Lab/labs/07-csdm-graph/) | **Minimal demo checkpoint** — **Payments(lab)** saved; manual **sgclab-app-01** on map; Preview relationships empty; no DependsOn verified | **Not started** |
+| 7 | [CSDM / service graph](https://eltonaguiar.github.io/ServiceNow_ServiceGraph_Lab/labs/07-csdm-graph/) | **In progress** — manual map checkpoint done; **Business Application** / offering layer pending; Preview relationships empty; no DependsOn verified | **Not started** |
 | 8–11 | [08](https://eltonaguiar.github.io/ServiceNow_ServiceGraph_Lab/labs/08-multisource-azure/) … [11](https://eltonaguiar.github.io/ServiceNow_ServiceGraph_Lab/labs/11-cleanup/) | **Not attempted** | **Not started** |
 
 ---

@@ -24,9 +24,9 @@ As shown in [Lab 7](https://eltonaguiar.github.io/ServiceNow_ServiceGraph_Lab/la
 | Labs 0–4 | Walkthrough + screenshots in this file | [Lab 4 — Run import](https://eltonaguiar.github.io/ServiceNow_ServiceGraph_Lab/labs/04-run-import/) |
 | Lab 5 | **Completed** — IRE look-only steps below | [Lab 5 — IRE](https://eltonaguiar.github.io/ServiceNow_ServiceGraph_Lab/labs/05-ire/) |
 | Lab 6 | **Completed** — hands-on mapping below (**deviates** from published read-only Part A) | [Lab 6 — ETL](https://eltonaguiar.github.io/ServiceNow_ServiceGraph_Lab/labs/06-etl-mappings/) · [demo deviations](docs/LAB-DEVIATIONS.md) |
-| Lab 7 | **Minimal checkpoint complete** — **Payments(lab)** + **View Map**; **not** full Lab 7 curriculum | [Lab 7 — CSDM](https://eltonaguiar.github.io/ServiceNow_ServiceGraph_Lab/labs/07-csdm-graph/) |
+| Lab 7 | **In progress** — manual **View Map** checkpoint done; **Business Application** / offering layer **not done** | [Lab 7 — CSDM](https://eltonaguiar.github.io/ServiceNow_ServiceGraph_Lab/labs/07-csdm-graph/) |
 | Lab 8 | **Optional — skipped** (Azure) | [Lab 8](https://eltonaguiar.github.io/ServiceNow_ServiceGraph_Lab/labs/08-multisource-azure/) |
-| Labs 9–11 | **Lab 9 planned; not started** (drift → cleanup) | [Lab 9](https://eltonaguiar.github.io/ServiceNow_ServiceGraph_Lab/labs/09-drift-monitoring/) |
+| Labs 9–11 | **Not started** (Lab 9 not the immediate next step) | [Lab 9](https://eltonaguiar.github.io/ServiceNow_ServiceGraph_Lab/labs/09-drift-monitoring/) |
 
 **Screenshot inventory:** [docs/SCREENSHOT-INVENTORY.md](docs/SCREENSHOT-INVENTORY.md) (included vs missing for this publish).
 
@@ -52,7 +52,7 @@ Verified lab region example: **US East (Ohio) `us-east-2`**. One **stopped** ren
 | **Table** | e.g. `cmdb_ci_vm_instance` | Filter Navigator: `cmdb_ci_vm_instance.list` |
 | Engine that **matches new rows to old** | **IRE** | Read outcomes in Lab 5; warnings in Lab 6 |
 | **Recipe** from AWS JSON → CMDB columns | **ETL** (IntegrationHub ETL) | Lab 6 |
-| Something people **rely on** (lab tag only here) | **Application service** (CSDM) | Lab 7 **minimal map only** — `Payments(lab)` label ≠ real payments software |
+| Something people **rely on** (lab tag only here) | **Application service** (CSDM) | Lab 7 **in progress** — manual map done; business-app layer pending |
 
 **Not the same thing:** A **cloud VM row** (`cmdb_ci_vm_instance`) is **not** a **Windows Server** CI (`cmdb_ci_win_server`). OS class needs guest discovery; **stopped** instance → **no OS inventory**.
 
@@ -622,11 +622,11 @@ The published lab starts with **read-only** mapping review. **This disposable PD
 
 ---
 
-## Lab 7 — Application service (**minimal demo checkpoint**)
+## Lab 7 — Application service (**in progress**)
 
 **Full lab instructions:** [Lab 7 — CSDM and the service graph](https://eltonaguiar.github.io/ServiceNow_ServiceGraph_Lab/labs/07-csdm-graph/)
 
-**Labs 8–11 not started.** This demo reached a **minimal** manual application service and **View Map** — not the full lab curriculum, discovered topology, or CSDM business-application chain.
+**Status:** **Lab 7 is not complete.** Steps **7.1–7.7** below record a **manual map checkpoint** (**Payments(lab)** + **View Map** + **sgclab-app-01**). The broader Lab 7 **CSDM** exercise — **Business Application** linked to that service, then a suitable **business service / offering** record — is **still pending**. **Lab 8** remains skipped. **Lab 9** is **not started** and is **not** the immediate next step on this demo path.
 
 **ELI5:** **Payments(lab)** is a **learning label** for something you would care about if it broke — wired manually to the stopped AWS computer **sgclab-app-01**. **No payment software** was discovered; the map is one entry arrow and one gear node, not a real production dependency graph.
 
@@ -690,13 +690,19 @@ Click **Save** — green confirmation (**method added successfully** / populatio
 
 > **Screenshot missing:** Done success banner.
 
-### Step 7.7 — View Map (demo checkpoint)
+### Step 7.7 — View Map (**checkpoint achieved — Lab 7 still open**)
 
 1. **View Map** — entry arrow → **sgclab-app-01**; properties: **Entry Points** `sgclab-app-01`, **Non-Operational**, learning description (no payment software installed). **Not** discovered topology; **no** verified **`Depends on`** `cmdb_rel_ci`.
 
 ![View Map — Payments(lab) entry point to sgclab-app-01 (privacy-reviewed — full lab crop)](assets/img/lab07/payments-lab-view-map.png)
 
 **Correction:** Application service **is** the service instance (`cmdb_ci_service_auto`) — do not add a separate generic `cmdb_ci_service_instance` layer for this wizard.
+
+### Pending — rest of Lab 7 (not documented in this demo yet)
+
+Continue on the [full Lab 7 page](https://eltonaguiar.github.io/ServiceNow_ServiceGraph_Lab/labs/07-csdm-graph/) — do **not** treat the manual map as finishing the lab.
+
+**Current work in progress (demo PDI):** In **All**, search **Business Applications** and capture the create/menu path **before** creating a record. Exact **Business Application → Payments(lab)** relationships and offering rows will be documented on the full lab site once verified — **no speculative relationship types or tables here**.
 
 ---
 
