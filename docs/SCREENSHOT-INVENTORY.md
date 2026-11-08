@@ -1,6 +1,6 @@
 # Screenshot inventory (demo publish)
 
-Tracks what is **in this repository** vs **missing**. Do not embed URLs that fail fetch (broken images on GitHub).
+Tracks what is **in this repository** vs **missing**. Lab 7 map/dropdown PNGs match privacy-reviewed assets on the [full lab site](https://eltonaguiar.github.io/ServiceNow_ServiceGraph_Lab/assets/img/lab07/).
 
 ## Included in repo (`main`)
 
@@ -11,11 +11,11 @@ Tracks what is **in this repository** vs **missing**. Do not embed URLs that fai
 | `assets/img/lab05/vm-identification-rule.png` | 5 | Dependent rule, Object ID |
 | `assets/img/lab05/vm-dependent-relationships.png` | 5 | Relationship vocabulary |
 | `assets/img/lab06/etl-vm-name-mapping.png` | 6 | Stock Name ← `object.ec2Name` |
-| `assets/img/lab07/choose-population-method-top.png` | 7 | Populate — Choose a Method (upper list) |
-| `assets/img/lab07/choose-population-method-lower.png` | 7 | Same dialog — Manual / Dynamic Service rows |
-| `assets/img/lab07/payments-lab-service-map.png` | 7 | Saved **Payments(lab)** map — entry + sgclab-app-01 |
+| `assets/img/lab07/choose-method-dropdown-top.png` | 7 | Choose a Method (top of list) |
+| `assets/img/lab07/choose-method-dropdown-scrolled.png` | 7 | Manual / Dynamic Service rows |
+| `assets/img/lab07/payments-lab-view-map.png` | 7 | View Map checkpoint (redacted metadata) |
 
-**Provenance:** Copied from [ServiceNow_ServiceGraph_Lab](https://github.com/eltonaguiar/ServiceNow_ServiceGraph_Lab) `main` `assets/img/` (privacy-reviewed).
+**Provenance:** Lab 04–06 from full lab `main`; Lab 07 dropdown/map synced from `https://eltonaguiar.github.io/ServiceNow_ServiceGraph_Lab/assets/img/lab07/`.
 
 **Labs 0–3 / personal AWS walkthrough:** Still use existing `user-attachments` URLs in README (demo repo history).
 
@@ -23,14 +23,12 @@ Tracks what is **in this repository** vs **missing**. Do not embed URLs that fai
 
 | Needed for | Content |
 |------------|---------|
-| Lab 6 step 6.3 | Sample import set picker (`ISET0010031` vs 0-row `ISET0010032`) |
-| Lab 6 step 6.4 | Duplicate-map error dialog |
-| Lab 6 step 6.5 | Edit Mapping: **Comments** ← `object.awsRegion` |
-| Lab 6 step 6.6 | VM list with **Comments** = `us-east-2` after Run Integration |
-| Lab 6 step 6.7 | Warning Log (NIC, storage volume, ABANDONED `cmdb_rel_ci`) |
+| Lab 6 step 6.3–6.7 | Sample picker, duplicate error, Comments mapping, VM Comments, Warning Log |
 | Lab 7 step 7.2 | **Provide Basic Details** form |
-| Lab 7 steps 7.4–7.6 | Manual picker, Save banner, Preview (empty Relationships), Done banner |
+| Lab 7 steps 7.4–7.6 | Manual Save toast/card, **Preview** panes, **Done** banner |
+
+**Not added:** `https://raw.githubusercontent.com/eltonaguiar/poc/main/payments-lab-screenshot.png` inspected (HTTP 200) — redundant with View Map asset; no Preview-specific bytes published.
 
 ## Next update
 
-When PNGs are added under `assets/img/lab06/` and remaining `assets/img/lab07/`, replace “Screenshot missing” blocks in README and refresh this file.
+When intermediate Lab 6 / Lab 7 PNGs arrive, add under `assets/img/lab06/` and `assets/img/lab07/` and refresh README “Screenshot missing” blocks.
