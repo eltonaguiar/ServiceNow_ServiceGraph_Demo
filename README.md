@@ -626,7 +626,7 @@ The published lab starts with **read-only** mapping review. **This disposable PD
 
 **Full lab instructions:** [Lab 7 — CSDM and the service graph](https://eltonaguiar.github.io/ServiceNow_ServiceGraph_Lab/labs/07-csdm-graph/)
 
-**Status:** **Lab 7 is not complete.** Steps **7.1–7.7**: manual **application service** map. Steps **7.8–7.13**: **Business Application**, **Business Service**, **Business Service Offering**, and wizard **Set relationships** (verified on this PDI). **Capability** modeling (step **7.14**) was opened then **left unsubmitted** — optional, still open. Expanded ELI5, incident fields, and custom OOB relationships: [full Lab 7](https://eltonaguiar.github.io/ServiceNow_ServiceGraph_Lab/labs/07-csdm-graph/) (not duplicated here). **Lab 8** skipped. **Lab 9** **not started** (not immediate next).
+**Status:** **Lab 7 is not complete.** Steps **7.1–7.7**: manual **application service** map. Steps **7.8–7.13**: **Business Application**, **Business Service**, **Business Service Offering**, and wizard **Set relationships** (verified on this PDI). **Capability** modeling (step **7.14**) was opened then **left unsubmitted** — optional, still open. Step **7.15**: incident form **viewed only** + **service list export** evidence. Step **7.16**: **practice incident (Part C) planned — not executed** (you run on PDI via [full Lab 7](https://eltonaguiar.github.io/ServiceNow_ServiceGraph_Lab/labs/07-csdm-graph/)). **Lab 8** skipped. **Lab 9** **not started** (not immediate next).
 
 **ELI5 (layered example):** **Business Application** `Payments` = the *business software family* you care about (learning record — not installed in AWS). **Business Service** `Payment Processing` = the *capability the company sells or runs* (still learning — **Pipeline** / **Requirements**, **not critical**). **Business Service Offering** `Payment Processing — Development` = *one packaged flavor* of that capability. **Application service** `Payments(lab)` = the *technical grouping* tied to your **stopped** VM **sgclab-app-01**. **No real payment processing** runs on the instance.
 
@@ -845,9 +845,22 @@ An **empty** `sysparm_additional_qual=` in the URL does **not** prove there is n
 
 > **Screenshot missing:** incident **New** form (no bytes this batch).
 
+### Step 7.16 — Practice incident with CSDM records (**planned — not executed in this demo**)
+
+The [full Lab 7](https://eltonaguiar.github.io/ServiceNow_ServiceGraph_Lab/labs/07-csdm-graph/) site is adding **Hands-On Part C**: field walkthrough using your **`Payment Processing`** stack, **Service** lookup verification against **`cmdb_ci_service`**, a **save** checkpoint, then **resolution / cleanup** (with warnings that **existing notification workflows** may still fire on some PDIs). **You** run that exercise on your PDI — **not** this cloud agent.
+
+| Scope | This PoC README (demo agent) |
+|-------|------------------------------|
+| **Status** | **Planned — not executed.** No practice incident was **saved**, **resolved**, or **deleted** here. |
+| **Actual evidence so far** | Step **7.15** only: **Incident → New** opened, **not submitted**; **service list export** snapshot (mixed classifications under base **`cmdb_ci_service`**). |
+| **Where to execute** | [Lab 7 — CSDM and the service graph](https://eltonaguiar.github.io/ServiceNow_ServiceGraph_Lab/labs/07-csdm-graph/) — use the published **Part C** section when it appears on that page (no deep-link anchor in this README until the lab site ships a stable heading id). |
+| **Related material already on full lab** | Unsaved field semantics: [Incident form fields](https://eltonaguiar.github.io/ServiceNow_ServiceGraph_Lab/labs/07-csdm-graph/#hands-on-incident-fields); **`business_service`** reference pattern: [#hands-on-incident-service-reference](https://eltonaguiar.github.io/ServiceNow_ServiceGraph_Lab/labs/07-csdm-graph/#hands-on-incident-service-reference). |
+
+**Does not imply:** production routing, impact automation, or that notification rules are disabled on your instance.
+
 ### Lab 7 — still open
 
-**Done on this PDI:** manual map + BA / BS / offering links + hierarchy **Depends on :: Used by** to VM; incident form **browsed** only. **Not done:** capability submitted, technical service, full Lab 7 curriculum, proven incident workflow, Lab 9+.
+**Done on this PDI:** manual map + BA / BS / offering links + hierarchy **Depends on :: Used by** to VM; incident **New** form **browsed** only (**7.15**). **Planned, not done here:** Part C **practice incident** (save + cleanup) — **7.16** / full lab. **Not done:** capability submitted, technical service, full Lab 7 curriculum, Lab 9+.
 
 ---
 
