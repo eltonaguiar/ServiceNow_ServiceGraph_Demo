@@ -797,7 +797,7 @@ Each row is a **different table/purpose**. Pick the field that matches the **que
 | Everyday question | Record (this PDI) | Role |
 |--------------------|-------------------|------|
 | What **software family** does the business own? | **Business Application** `Payments` | Design / application portfolio (**not** the incident **Service** field) |
-| What **capability** do we provide? | **Business Service** `Payment Processing` | Business-owned service catalog |
+| What **capability** do we provide? | **Business Service** `Payment Processing` | Business-owned service catalog (CSDM sense — see incident **Service** reference below) |
 | Which **packaged flavor** of that capability? | **Business Service Offering** `Payment Processing — Development` | Offering / consumer-facing variant |
 | What **technical service instance** groups the VM? | **Application service** `Payments(lab)` | CMDB service map entry (manual on this PDI) |
 | What **computer** fails in AWS? | **Virtual Machine Instance** `sgclab-app-01` | Cloud inventory CI |
@@ -815,16 +815,22 @@ Practical **question-led interviews** and operating model: same [full Lab 7](htt
 
 ### Step 7.15 — Incident form (**viewed only — not submitted**)
 
-Opened **Incident → New** to see how service context might appear on a ticket. **No incident was created**; mandatory **Caller** / **Short description** and other qualifiers were **not** completed. Your instance may hide or require different fields.
+Opened **Incident → New** to see how service context might appear on a ticket. **No incident was created**; mandatory **Caller** / **Short description** and other qualifiers were **not** completed.
 
-| Incident field (visible) | Hypothetical use with **our lab records** (illustration only) |
-|--------------------------|---------------------------------------------------------------|
-| **Service** | **`Payment Processing`** (business **service**, not Business Application `Payments`) |
-| **Service offering** | **`Payment Processing — Development`** |
-| **Configuration item** | **`Payments(lab)`** if the **application service** failed, **or** **`sgclab-app-01`** if the **VM/host** is the known failed component — depends what you can select in the picker |
-| **Business Application** `Payments` | **Separate** design record — **do not** treat as interchangeable with **Service** / offering on the incident |
+**Reference table (this instance):** On this PDI, **Incident → Service** (`incident.business_service`) uses the **base** CMDB class **`cmdb_ci_service`**, not a business-only table. Reference lookup opens approximately:
 
-**Does not prove:** automatic impact analysis, routing to the right team, or that every field accepts every record type on every PDI.
+`cmdb_ci_service_list.do?sysparm_target=incident.business_service&sysparm_reference=cmdb_ci_service&sysparm_element=business_service&sysparm_additional_qual=`
+
+An **empty** `sysparm_additional_qual=` in the URL does **not** prove there is no filter — **dictionary**, **reference qualifier**, or **client scripts** may still restrict which **subclasses** appear. We **did not** capture lookup results; **do not** assume only **`cmdb_ci_service_business`** (or only **Payment Processing**) is selectable until you test the picker.
+
+| Incident field (visible) | Semantic suggestion (interview) vs reference reality |
+|--------------------------|-----------------------------------------------------|
+| **Service** (`business_service`) | **Suggested story:** **`Payment Processing`** — the **business capability** the customer cares about. **Platform fact:** field points at **`cmdb_ci_service`**; allowed rows may include **subclasses** per instance rules (not verified here). |
+| **Service offering** | **Suggested:** **`Payment Processing — Development`** (offering record), if the picker exposes it and your process expects offering on incidents. |
+| **Configuration item** | **Suggested:** **`Payments(lab)`** (application service) **or** **`sgclab-app-01`** (VM) depending which component is known failed — whichever the CI reference allows. |
+| **Business Application** `Payments` | **Different domain** — design/portfolio record; **not** interchangeable with **Service** on the incident or with deployment CI picks. |
+
+**Does not prove:** which services appear in the lookup, automatic impact, routing, or that our lab rows qualify on every PDI. Deeper incident/CSDM field guide: [full Lab 7](https://eltonaguiar.github.io/ServiceNow_ServiceGraph_Lab/labs/07-csdm-graph/).
 
 > **Screenshot missing:** incident **New** form (no bytes this batch).
 
