@@ -790,9 +790,47 @@ On **Business Service** `Payment Processing` → **General** tab → **Related I
 
 ![Unsaved CI Relationship — blank Parent, Provided by :: Provides, Child Payment Processing (not submitted)](assets/img/lab07/business-capability-relationship-unsaved.png)
 
+### CSDM domains vs records (ELI5 — not interchangeable)
+
+Each row is a **different table/purpose**. Pick the field that matches the **question** you are answering.
+
+| Everyday question | Record (this PDI) | Role |
+|--------------------|-------------------|------|
+| What **software family** does the business own? | **Business Application** `Payments` | Design / application portfolio (**not** the incident **Service** field) |
+| What **capability** do we provide? | **Business Service** `Payment Processing` | Business-owned service catalog |
+| Which **packaged flavor** of that capability? | **Business Service Offering** `Payment Processing — Development` | Offering / consumer-facing variant |
+| What **technical service instance** groups the VM? | **Application service** `Payments(lab)` | CMDB service map entry (manual on this PDI) |
+| What **computer** fails in AWS? | **Virtual Machine Instance** `sgclab-app-01` | Cloud inventory CI |
+
+Domain map, table names, and interview checklist: [full Lab 7](https://eltonaguiar.github.io/ServiceNow_ServiceGraph_Lab/labs/07-csdm-graph/) (comprehensive guide — not copied here).
+
+### Manual methodology (demo path)
+
+1. **Govern** business-owned rows (application, service, offering) with realistic owners/status — not discovered from AWS tags alone.  
+2. **Import / connector** supplies technical CIs (our path: Service Graph + **Manual** application service).  
+3. **Wire** typed relationships (**Consumes :: Consumed by**, **Depends on :: Used by**) and **validate** in dependency views — not assumed from **Service Mapping**.  
+4. **Optional capability / technical service** only when modeled deliberately (we **did not** submit capability step **7.14**).
+
+Practical **question-led interviews** and operating model: same [full Lab 7](https://eltonaguiar.github.io/ServiceNow_ServiceGraph_Lab/labs/07-csdm-graph/) page.
+
+### Step 7.15 — Incident form (**viewed only — not submitted**)
+
+Opened **Incident → New** to see how service context might appear on a ticket. **No incident was created**; mandatory **Caller** / **Short description** and other qualifiers were **not** completed. Your instance may hide or require different fields.
+
+| Incident field (visible) | Hypothetical use with **our lab records** (illustration only) |
+|--------------------------|---------------------------------------------------------------|
+| **Service** | **`Payment Processing`** (business **service**, not Business Application `Payments`) |
+| **Service offering** | **`Payment Processing — Development`** |
+| **Configuration item** | **`Payments(lab)`** if the **application service** failed, **or** **`sgclab-app-01`** if the **VM/host** is the known failed component — depends what you can select in the picker |
+| **Business Application** `Payments` | **Separate** design record — **do not** treat as interchangeable with **Service** / offering on the incident |
+
+**Does not prove:** automatic impact analysis, routing to the right team, or that every field accepts every record type on every PDI.
+
+> **Screenshot missing:** incident **New** form (no bytes this batch).
+
 ### Lab 7 — still open
 
-**Done on this PDI:** manual map + business application / service / offering links + hierarchy **Depends on :: Used by** to VM. **Not done:** optional capability chain, full Lab 7 curriculum, Lab 9+.
+**Done on this PDI:** manual map + BA / BS / offering links + hierarchy **Depends on :: Used by** to VM; incident form **browsed** only. **Not done:** capability submitted, technical service, full Lab 7 curriculum, proven incident workflow, Lab 9+.
 
 ---
 
