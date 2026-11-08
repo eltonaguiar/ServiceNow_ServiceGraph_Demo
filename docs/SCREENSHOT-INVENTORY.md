@@ -1,6 +1,6 @@
 # Screenshot inventory (demo publish)
 
-Tracks what is **in this repository** vs **missing**. Lab 7 map/dropdown PNGs match privacy-reviewed assets on the [full lab site](https://eltonaguiar.github.io/ServiceNow_ServiceGraph_Lab/assets/img/lab07/).
+Tracks what is **in this repository** vs **missing**. Lab 7 PNGs align with the [full lab site](https://eltonaguiar.github.io/ServiceNow_ServiceGraph_Lab/assets/img/lab07/) where noted.
 
 ## Included in repo (`main`)
 
@@ -13,30 +13,28 @@ Tracks what is **in this repository** vs **missing**. Lab 7 map/dropdown PNGs ma
 | `assets/img/lab06/etl-vm-name-mapping.png` | 6 | Stock Name ← `object.ec2Name` |
 | `assets/img/lab07/choose-method-dropdown-top.png` | 7 | Choose a Method (top of list) |
 | `assets/img/lab07/choose-method-dropdown-scrolled.png` | 7 | Manual / Dynamic Service rows |
+| `assets/img/lab07/payments-lab-screenshot.png` | 7 | Wizard **Preview** (mirrored from full lab `main`) |
 | `assets/img/lab07/payments-lab-view-map.png` | 7 | View Map checkpoint (redacted metadata) |
-| `assets/img/lab07/business-service-payment-processing.png` | 7 | Saved BS; empty Business Capabilities |
-| `assets/img/lab07/business-capability-relationship-unsaved.png` | 7 | Unsaved capability trap — not submitted |
+| `assets/img/lab07/business-service-payment-processing.png` | 7 | **Historical:** saved BS before Checkpoint D — **empty Business Capabilities** tab |
+| `assets/img/lab07/business-capability-relationship-unsaved.png` | 7 | **Historical:** unsaved Parent trap — **not** final `Accept Customer Payments` row |
 
-**Provenance:** Lab 04–06 from full lab `main`; Lab 07 dropdown/map synced from `https://eltonaguiar.github.io/ServiceNow_ServiceGraph_Lab/assets/img/lab07/`.
+**Counts:** Lab **7** shipped PNGs: **6** (same six filenames as [full lab published set](https://eltonaguiar.github.io/ServiceNow_ServiceGraph_Lab/labs/07-csdm-graph/#lab7-completion-criteria)); **15** total under `assets/img/` in this demo repo.
+
+**Provenance:** Lab 04–06 from full lab `main`; Lab 07 dropdown/map/preview from `https://eltonaguiar.github.io/ServiceNow_ServiceGraph_Lab/assets/img/lab07/`.
 
 **Labs 0–3 / personal AWS walkthrough:** Still use existing `user-attachments` URLs in README (demo repo history).
 
-## Missing — text steps present, **no fabricated images**
+## Missing — hands-on complete on PDI, **no fabricated images**
 
 | Needed for | Content |
 |------------|---------|
 | Lab 6 step 6.3–6.7 | Sample picker, duplicate error, Comments mapping, VM Comments, Warning Log |
-| Lab 7 step 7.2 | **Provide Basic Details** form |
-| Lab 7 steps 7.4–7.6 | Manual Save toast/card, **Preview** panes, **Done** banner |
-| Lab 7 steps 7.8–7.9, 7.11–7.12 | Business Application, Set relationships confirmations |
-| Lab 7 step 7.13 | Hierarchy **dependency views** graph |
-| Lab 7 step 7.15 | Incident **New** (initial browse) |
-| Lab 7 step 7.16 (Part C) | Saved incident **`INC0010001`**, related lists, resolve mandatory fields, **Resolved** banner |
+| Lab 7 | **Dependency Views** five-node graph (`Accept Customer Payments` → … → VM) |
+| Lab 7 | Saved **`Accept Customer Payments`** capability form / Business Capabilities tab **after** Checkpoint D |
+| Lab 7 | Incident **`INC0010001`** — New, saved, related lists, resolve banner |
 
-**Part C (7.16):** Practice incident was **executed and resolved** on the PDI; captures were visible locally but **transfer failed** (no BOX/file payload in the publish path) — README documents fields/text only, **no fabricated PNGs**.
-
-**Not added:** `https://raw.githubusercontent.com/eltonaguiar/poc/main/payments-lab-screenshot.png` inspected (HTTP 200) — redundant with View Map asset; no Preview-specific bytes published.
+**Transfer status:** User-visible captures exist on PDI; **ZIP / BOX transfer pending** — README documents outcomes in text only.
 
 ## Next update
 
-When intermediate Lab 6 / Lab 7 PNGs arrive, add under `assets/img/lab06/` and `assets/img/lab07/` and refresh README “Screenshot missing” blocks.
+When the user supplies a ZIP (or transfer succeeds), add under `assets/img/lab06/` and `assets/img/lab07/` and refresh README labels so historical PNGs are not read as the final graph or capability state.
