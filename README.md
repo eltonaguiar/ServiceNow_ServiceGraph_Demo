@@ -713,9 +713,10 @@ Click **Save** — green confirmation (**method added successfully** / populatio
 | Breadcrumb | Action |
 |------------|--------|
 | **All** → **CSDM** → **Design** → **Business Application** | Create **`Payments`** |
-| Form | **Status** **Implementing**; mandatory **Owners** (hidden until expanded) — set **IT Application owner** to **System Administrator** (observed workaround on this PDI) |
+| Form | **Status** **Implementing** |
+| **Owners** (mandatory; section easy to miss) | **IT Application owner** = **System Administrator** (workaround if form blocks save until owner is set) |
 
-> **Screenshot missing:** Business Application form.
+> **Screenshot missing:** Business Application create form.
 
 ### Step 7.9 — Link application service to Business Application
 
@@ -739,7 +740,7 @@ On **Payments(lab)** → wizard **Set relationships** (after app service exists)
 | General | **Service classification** **Business Service**; **Consumer type** **Internal**; criticality **4 - not critical** |
 | Description | Learning example — **no real payment processing** |
 
-> **Screenshot missing:** `assets/img/lab07/business-service-payment-processing.png` — Business Service form with **Offerings (1)** and empty **Business Capabilities** (attachment bytes not on agent disk this batch; add on next publish).
+![Business Service Payment Processing — Pipeline/Requirements, Offerings (1), empty Business Capabilities tab](assets/img/lab07/business-service-payment-processing.png)
 
 ### Step 7.11 — Business Service Offering
 
@@ -785,9 +786,9 @@ On **Business Service** `Payment Processing` → **General** tab → **Related I
 | **Type** | **Provided by :: Provides** |
 | **Child** | `Payment Processing` |
 
-**Went back without Submit** — no capability CI created, no technical service record. Full lab may document modeling later.
+**Backed out without Submit** — **no** capability CI, **no** technical service record (intentional trap: blank **Parent** blocks a real row). Full lab may document capability modeling later.
 
-> **Screenshot missing:** `assets/img/lab07/business-capability-relationship-unsaved.png` — unsaved **CI Relationship** (**Provided by :: Provides**, child **Payment Processing**); user exited without Submit (attachment bytes not on agent disk this batch).
+![Unsaved CI Relationship — blank Parent, Provided by :: Provides, Child Payment Processing (not submitted)](assets/img/lab07/business-capability-relationship-unsaved.png)
 
 ### Lab 7 — still open
 
