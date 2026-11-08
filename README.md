@@ -626,7 +626,7 @@ The published lab starts with **read-only** mapping review. **This disposable PD
 
 **Full lab instructions:** [Lab 7 — CSDM and the service graph](https://eltonaguiar.github.io/ServiceNow_ServiceGraph_Lab/labs/07-csdm-graph/)
 
-**Status:** **Lab 7 is not complete.** Steps **7.1–7.7**: manual **application service** map. Steps **7.8–7.13**: **Business Application**, **Business Service**, **Business Service Offering**, and wizard **Set relationships** (verified on this PDI). **Capability** modeling (step **7.14**) was opened then **left unsubmitted** — optional, still open. Step **7.15**: incident form **viewed only** + **service list export** evidence. Step **7.16**: **practice incident (Part C) planned — not executed** (you run on PDI via [full Lab 7](https://eltonaguiar.github.io/ServiceNow_ServiceGraph_Lab/labs/07-csdm-graph/)). **Lab 8** skipped. **Lab 9** **not started** (not immediate next).
+**Status:** **Lab 7 is not complete.** Steps **7.1–7.7**: manual **application service** map. Steps **7.8–7.13**: **Business Application**, **Business Service**, **Business Service Offering**, and wizard **Set relationships** (verified on this PDI). **Capability** modeling (step **7.14**) opened then **left unsubmitted** — still pending. Step **7.15**: early **Incident → New** browse (no submit then) + **`cmdb_ci_service`** list export. Step **7.16** (**Part C**): practice incident **`INC0010001`** **created, saved, resolved** — **not Closed**, left for audit (no delete). Walkthrough: [full Lab 7 — Part C](https://eltonaguiar.github.io/ServiceNow_ServiceGraph_Lab/labs/07-csdm-graph/#hands-on-part-c). **Lab 8** skipped. **Lab 9** **not started** (not immediate next).
 
 **ELI5 (layered example):** **Business Application** `Payments` = the *business software family* you care about (learning record — not installed in AWS). **Business Service** `Payment Processing` = the *capability the company sells or runs* (still learning — **Pipeline** / **Requirements**, **not critical**). **Business Service Offering** `Payment Processing — Development` = *one packaged flavor* of that capability. **Application service** `Payments(lab)` = the *technical grouping* tied to your **stopped** VM **sgclab-app-01**. **No real payment processing** runs on the instance.
 
@@ -813,9 +813,9 @@ Domain map, table names, and interview checklist: [full Lab 7](https://eltonagui
 
 Practical **question-led interviews** and operating model: same [full Lab 7](https://eltonaguiar.github.io/ServiceNow_ServiceGraph_Lab/labs/07-csdm-graph/) page.
 
-### Step 7.15 — Incident form (**viewed only — not submitted**)
+### Step 7.15 — Incident form (**initial browse — not submitted at this step**)
 
-Opened **Incident → New** to see how service context might appear on a ticket. **No incident was created**; mandatory **Caller** / **Short description** and other qualifiers were **not** completed.
+Opened **Incident → New** early in the lab to inspect reference fields. **At this step** no incident was saved; mandatory **Caller** / **Short description** were **not** completed. A saved practice ticket follows in **7.16** (Part C).
 
 **Reference table (this instance):** On this PDI, **Incident → Service** (`incident.business_service`) uses the **base** CMDB class **`cmdb_ci_service`**, not a business-only table. Reference lookup opens approximately:
 
@@ -845,22 +845,40 @@ An **empty** `sysparm_additional_qual=` in the URL does **not** prove there is n
 
 > **Screenshot missing:** incident **New** form (no bytes this batch).
 
-### Step 7.16 — Practice incident with CSDM records (**planned — not executed in this demo**)
+### Step 7.16 — Practice incident with CSDM records (**executed — resolved, not deleted**)
 
-The [full Lab 7](https://eltonaguiar.github.io/ServiceNow_ServiceGraph_Lab/labs/07-csdm-graph/) site is adding **Hands-On Part C**: field walkthrough using your **`Payment Processing`** stack, **Service** lookup verification against **`cmdb_ci_service`**, a **save** checkpoint, then **resolution / cleanup** (with warnings that **existing notification workflows** may still fire on some PDIs). **You** run that exercise on your PDI — **not** this cloud agent.
+**Hands-On Part C** on the [full Lab 7 site](https://eltonaguiar.github.io/ServiceNow_ServiceGraph_Lab/labs/07-csdm-graph/#hands-on-part-c) — performed on this PDI. Simulation only: **no real outage or repair**.
 
-| Scope | This PoC README (demo agent) |
-|-------|------------------------------|
-| **Status** | **Planned — not executed.** No practice incident was **saved**, **resolved**, or **deleted** here. |
-| **Actual evidence so far** | Step **7.15** only: **Incident → New** opened, **not submitted**; **service list export** snapshot (mixed classifications under base **`cmdb_ci_service`**). |
-| **Where to execute** | [Lab 7 — CSDM and the service graph](https://eltonaguiar.github.io/ServiceNow_ServiceGraph_Lab/labs/07-csdm-graph/) — use the published **Part C** section when it appears on that page (no deep-link anchor in this README until the lab site ships a stable heading id). |
-| **Related material already on full lab** | Unsaved field semantics: [Incident form fields](https://eltonaguiar.github.io/ServiceNow_ServiceGraph_Lab/labs/07-csdm-graph/#hands-on-incident-fields); **`business_service`** reference pattern: [#hands-on-incident-service-reference](https://eltonaguiar.github.io/ServiceNow_ServiceGraph_Lab/labs/07-csdm-graph/#hands-on-incident-service-reference). |
+| Item | Value (this PDI) |
+|------|------------------|
+| **Number** | **`INC0010001`** (created / reopened for exercise) |
+| **Caller** | Abel Tuter (sample PDI user) |
+| **Short description** | Prior lab **test** text (payment-outage story placeholder) |
+| **Service** | **`Payment Processing`** |
+| **Service offering** | **`Payment Processing — Development`** |
+| **Configuration item** | **`Payments(lab)`** |
+| **Impact / Urgency / Priority** | **3 - Low** / **3 - Low** / **4 - Low** |
+| **Assignment** | (blank) |
 
-**Does not imply:** production routing, impact automation, or that notification rules are disabled on your instance.
+**Resolve path:** Platform required **Resolution code** and **Resolution notes** before resolve would stick. **Resolution code:** **No resolution provided** (simulation — no fix performed). **Resolution notes (substance):** lab completed verifying saved references and related lists; no actual outage or repair.
+
+**End state:** **Resolved** and saved; header **Service** / **offering** / **CI** references **retained**. **State** **Resolved** — **not Closed** (intentional audit trail; **not deleted**).
+
+**Related lists after save (observed):**
+
+| Related list | Count | Observed row (sanitized) |
+|--------------|-------|-------------------------|
+| **Affected CIs** | 1 | **`Payments(lab)`** |
+| **Impacted Services/CIs** | 1 | **`Payment Processing`** — **Operational**; **`Manually added` = `true`** |
+| **Service Offerings** | 1 | **`Payment Processing — Development`** — **Parent** **`Payment Processing`**; business service **Pipeline** / **Requirements** (catalog context on related row) |
+
+**Honest limits:** **`Manually added` = `true`** is a platform flag on the related row — **not** proof you clicked **Add**, and **not** proof automated dependency inference from the CSDM graph. Does **not** prove notification rules were disabled (workflows may still have fired on some instances). Does **not** prove impact/routing automation. Field semantics and warnings: [Part C](https://eltonaguiar.github.io/ServiceNow_ServiceGraph_Lab/labs/07-csdm-graph/#hands-on-part-c); pre-save reference notes stay in **7.15** (export + **`cmdb_ci_service`** URL).
+
+> **Screenshot missing:** incident **New**, saved form, related lists, resolve banner — image transfer failed in the publish environment (**no BOX/file bytes**); UI captures were visible on the PDI but **not embedded** in this repo. See [`docs/SCREENSHOT-INVENTORY.md`](docs/SCREENSHOT-INVENTORY.md).
 
 ### Lab 7 — still open
 
-**Done on this PDI:** manual map + BA / BS / offering links + hierarchy **Depends on :: Used by** to VM; incident **New** form **browsed** only (**7.15**). **Planned, not done here:** Part C **practice incident** (save + cleanup) — **7.16** / full lab. **Not done:** capability submitted, technical service, full Lab 7 curriculum, Lab 9+.
+**Done on this PDI:** manual map + BA / BS / offering links + hierarchy **Depends on :: Used by** to VM; **7.15** reference/export evidence; **7.16** practice incident **`INC0010001`** **resolved** (audit retained). **Not done:** capability submitted (**7.14**), technical service, full Lab 7 curriculum, Lab 9+.
 
 ---
 

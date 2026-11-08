@@ -30,6 +30,10 @@ Tracks what is **in this repository** vs **missing**. Lab 7 map/dropdown PNGs ma
 | Lab 7 steps 7.4–7.6 | Manual Save toast/card, **Preview** panes, **Done** banner |
 | Lab 7 steps 7.8–7.9, 7.11–7.12 | Business Application, Set relationships confirmations |
 | Lab 7 step 7.13 | Hierarchy **dependency views** graph |
+| Lab 7 step 7.15 | Incident **New** (initial browse) |
+| Lab 7 step 7.16 (Part C) | Saved incident **`INC0010001`**, related lists, resolve mandatory fields, **Resolved** banner |
+
+**Part C (7.16):** Practice incident was **executed and resolved** on the PDI; captures were visible locally but **transfer failed** (no BOX/file payload in the publish path) — README documents fields/text only, **no fabricated PNGs**.
 
 **Not added:** `https://raw.githubusercontent.com/eltonaguiar/poc/main/payments-lab-screenshot.png` inspected (HTTP 200) — redundant with View Map asset; no Preview-specific bytes published.
 
