@@ -634,7 +634,7 @@ The published lab starts with **read-only** mapping review. **This disposable PD
 
 **Population methods (abbreviated):** On **Choose a Method**, the UI lists five options — **Top-Down Discovery**, **Dynamic CI Groups**, **Tags**, **Manual**, **Dynamic Service**. This demo uses **Manual** only. Role prerequisites, domain notes, and the full comparison table: [full lab — Step 3 Populate](https://eltonaguiar.github.io/ServiceNow_ServiceGraph_Lab/labs/07-csdm-graph/#hands-on-step-3).
 
-**Wizard vs classic record:** **Environment** on **Create an Application Service** is **not** the same field as classic **Service Instance → New Record → Used for** (*Production* / *Development*). Match the labels on your current screen.
+**Wizard vs classic / list columns (observed — verify on your form):** The **Create an Application Service** wizard recorded **Environment** `Development` for **`Payments(lab)`** (steps **7.2** / **7.6**). That is **not** the same attribute as classic **Service Instance → New Record → Used for** (*Production* / *Development*), nor the **Used for** column on a **`cmdb_ci_service`** list export (step **7.15**). On that export, **`Payments(lab)`** and the lab business rows all showed **Used for** `Production` while the wizard still said **Environment** `Development` — **pending reconcile** on the record; this README **does not** conflate or “fix” them. **Operational status** in the export is **CMDB service operational status**, not AWS **instance state**, power, or guest lifecycle (**sgclab-app-01** remains **stopped** in **us-east-2**).
 
 ### Manual lab vs enterprise Service Mapping (why we did not use Top-Down Discovery)
 
@@ -821,16 +821,27 @@ Opened **Incident → New** to see how service context might appear on a ticket.
 
 `cmdb_ci_service_list.do?sysparm_target=incident.business_service&sysparm_reference=cmdb_ci_service&sysparm_element=business_service&sysparm_additional_qual=`
 
-An **empty** `sysparm_additional_qual=` in the URL does **not** prove there is no filter — **dictionary**, **reference qualifier**, or **client scripts** may still restrict which **subclasses** appear. We **did not** capture lookup results; **do not** assume only **`cmdb_ci_service_business`** (or only **Payment Processing**) is selectable until you test the picker.
+An **empty** `sysparm_additional_qual=` in the URL does **not** prove there is no filter — **dictionary**, **reference qualifier**, or **client scripts** may still restrict which **subclasses** appear. The base reference explains why “**Business Services only**” is too narrow: subclasses such as **application services** can appear in the same family of lists.
+
+**Service list export (sanitized lab rows — most likely aligns with picker, not proven exhaustive):** A **`cmdb_ci_service`** list export on this PDI included at least these **names** (no contact or ownership columns copied here). The export had **no `sys_class_name`** — the **Classification** column is a **UI label**, not a definitive underlying table class; subclass detail lives on the full lab guide.
+
+| Name (this PDI) | Classification (export column) | Used for | Operational status |
+|-----------------|--------------------------------|----------|---------------------|
+| `Payment Processing` | Business Service | Production | Operational |
+| `Payment Processing — Development` | Business Service | Production | Operational |
+| `Payments(lab)` | Application Service | Production | Non-Operational |
+| `ServiceNow Event Management` | Application Service | Production | Operational |
+
+**Caveats:** Export **most likely** reflects what you would see when opening the incident **Service** lookup from the same list context, but we **did not** re-open the live selector at export time — treat this as a **snapshot**, not a guarantee of every row, sort order, or filter at click time. **`Payments(lab)`** **Used for** `Production` vs wizard **Environment** `Development` is the same **pending verify** discrepancy as above — do not assume they stay in sync without checking the record. Field semantics, filters, and incident workflow depth: [full Lab 7](https://eltonaguiar.github.io/ServiceNow_ServiceGraph_Lab/labs/07-csdm-graph/).
 
 | Incident field (visible) | Semantic suggestion (interview) vs reference reality |
 |--------------------------|-----------------------------------------------------|
-| **Service** (`business_service`) | **Suggested story:** **`Payment Processing`** — the **business capability** the customer cares about. **Platform fact:** field points at **`cmdb_ci_service`**; allowed rows may include **subclasses** per instance rules (not verified here). |
+| **Service** (`business_service`) | **Suggested story:** **`Payment Processing`** — the **business capability** the customer cares about. **Platform fact:** field points at **`cmdb_ci_service`**; export snapshot shows **Business Service** and **Application Service** **classification** labels in one list (not business-only). |
 | **Service offering** | **Suggested:** **`Payment Processing — Development`** (offering record), if the picker exposes it and your process expects offering on incidents. |
 | **Configuration item** | **Suggested:** **`Payments(lab)`** (application service) **or** **`sgclab-app-01`** (VM) depending which component is known failed — whichever the CI reference allows. |
 | **Business Application** `Payments` | **Different domain** — design/portfolio record; **not** interchangeable with **Service** on the incident or with deployment CI picks. |
 
-**Does not prove:** which services appear in the lookup, automatic impact, routing, or that our lab rows qualify on every PDI. Deeper incident/CSDM field guide: [full Lab 7](https://eltonaguiar.github.io/ServiceNow_ServiceGraph_Lab/labs/07-csdm-graph/).
+**Does not prove:** that the export is the **complete** selector population, automatic impact, routing, or that our lab rows qualify on every PDI.
 
 > **Screenshot missing:** incident **New** form (no bytes this batch).
 
